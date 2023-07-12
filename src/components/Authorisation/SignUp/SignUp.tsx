@@ -54,23 +54,23 @@ const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
 
             <div className={style.fieldWrapper}>
               <Field type='text' name='userName' placeholder='User name' />
-              {errors.userName && touched.userName ? (
+              {errors.userName && touched.userName && (
                 <div className={style.fieldError}>{errors.userName}</div>
-              ) : null}
+              )}
             </div>
 
             <div className={style.fieldWrapper}>
               <Field type='email' name='email' placeholder='Email' />
-              {errors.email && touched.email ? (
+              {errors.email && touched.email && (
                 <div className={style.fieldError}>{errors.email}</div>
-              ) : null}
+              )}
             </div>
 
             <div className={style.fieldWrapper}>
               <Field type='password' name='password' placeholder='Password' />
-              {errors.password && touched.password ? (
+              {errors.password && touched.password && (
                 <div className={style.fieldError}>{errors.password}</div>
-              ) : null}
+              )}
             </div>
 
             <label className={style.checkboxContiner}>
