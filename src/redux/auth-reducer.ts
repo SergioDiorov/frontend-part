@@ -34,8 +34,9 @@ export const signUpUserTh =
   async (dispatch: Dispatch<ReducerActionTypes>) => {
     try {
       let response = await userAuthApi.signUp(userCredentials);
-      response.data.userId &&
+      if (response.data.userId) {
         dispatch(actions.signUpUser(response.data.userId, null));
+      }
     } catch (error: any) {
       dispatch(actions.signUpUser(null, error.response.data.message));
     }
