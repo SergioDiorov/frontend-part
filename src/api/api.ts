@@ -2,7 +2,7 @@ import axios from 'axios';
 import { UserSignUpType } from '../types/types';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/',
+  baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 export type SignUpUserType = {
