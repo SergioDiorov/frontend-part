@@ -5,7 +5,7 @@ const instance = axios.create({
   baseURL: 'http://localhost:3000/',
 });
 
-type SignUpUserType = {
+export type SignUpUserType = {
   code: number;
   message: string;
   userId?: string;
