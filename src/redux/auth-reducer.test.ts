@@ -6,23 +6,30 @@ import authReducer, {
 import { SignUpUserType, userAuthApi } from '../api/api';
 
 let state: InitialState;
+const dispatchMock = jest.fn();
+const getStateMock = jest.fn();
+jest.mock('../api/api');
+const userAuthApiMock = userAuthApi as jest.Mocked<typeof userAuthApi>;
 
 beforeEach(() => {
   state = {
     userId: null,
     requestErrors: null,
   };
+  dispatchMock.mockClear();
+  getStateMock.mockClear();
+  userAuthApiMock.signUp.mockClear();
 });
 
-jest.mock('../api/api');
-const userAuthApiMock = userAuthApi as jest.Mocked<typeof userAuthApi>;
-const result: SignUpUserType = {
-  code: 201,
-  message: 'SUCCESS',
-  userId: 'test123',
+const result: { data: SignUpUserType } = {
+  data: {
+    code: 201,
+    message: 'SUCCESS',
+    userId: 'test123',
+  },
 };
 // @ts-ignore
-userAuthApiMock.signUp.mockReturnValue(Promise.resolve({ data: result }));
+userAuthApiMock.signUp.mockReturnValue(Promise.resolve(result));
 
 test('SIGN_UP action should return userId', () => {
   const userId = 'userId';
@@ -50,8 +57,6 @@ test('signUpUserTh thunk should maske success dispatch', async () => {
     email: 'test@gmail.com',
     password: 'test123',
   });
-  const dispatchMock = jest.fn();
-  const getStateMock = jest.fn();
 
   await thunk(dispatchMock, getStateMock, {});
 
