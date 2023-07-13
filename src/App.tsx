@@ -1,24 +1,24 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import style from './App.module.scss';
+import { Route, Routes, useLocation } from 'react-router';
+import SignIn from './components/Authorisation/SignIn/SignIn';
+import SignUpContainer from './components/Authorisation/SignUp/SignUpContainer';
 
-function App() {
+let App: React.FC = () => {
+  let location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Test i.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={style.appContaier}>
+      {!(location.pathname === '/signin' || location.pathname === '/signup') &&
+        '<Sidebar></Sidebar>'}
+      <Routes>
+        <Route path='/signin' element={<SignIn />} />
+        <Route path='/signup' element={<SignUpContainer />} />
+        <Route path='/profiles' element={'<Profiles />'} />
+        <Route path='/users' element={'<Users />'} />
+        <Route path='/dashboard' element={'<Dashboard />'} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;

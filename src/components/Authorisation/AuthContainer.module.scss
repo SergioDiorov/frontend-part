@@ -1,0 +1,137 @@
+.authContainer {
+  background: url("../../img/background-images/authBG.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: left;
+  background-attachment: fixed;
+  width: 100%;
+  min-height: 100vh;
+  padding: 100px 20px;
+  display: flex;
+  color: #f2ede7;
+
+  .formContainer {
+    background-color: rgba(18, 19, 15, 0.92);
+    margin: auto;
+    max-width: 580px;
+    width: 100%;
+    height: fit-content;
+    border-radius: 38px;
+    padding: 74px 45px 72px 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    .title {
+      color: #f2ede7;
+      font-size: 45px;
+      font-weight: 700;
+      margin: 0 0 32px 0;
+    }
+    input {
+      position: relative;
+      width: 100%;
+      height: 70px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background: #f2ede7;
+      border-radius: 20px;
+      margin: 15px 0;
+      color: #331e10;
+      font-size: 21px;
+      padding: 20px;
+      z-index: 2;
+      &::placeholder {
+        color: #341e11;
+      }
+    }
+    .checkboxContiner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 15px 0 0 0;
+      cursor: pointer;
+      input {
+        width: 24px;
+        height: 24px;
+        margin: 0;
+        background: #d9d9d9;
+        cursor: pointer;
+      }
+      .checkboxSpan {
+        margin: 0 0 0 24px;
+        color: #f2ede7;
+        font-size: 21px;
+      }
+    }
+    .submitButton {
+      width: 266px;
+      height: 70px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background: #af253c;
+      border-radius: 20px;
+      margin: 54px 0 47px 0;
+      color: #fff;
+      font-size: 21px;
+      font-weight: 700;
+      transition: 0.2s;
+      &:hover {
+        filter: brightness(0.8);
+      }
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+    .fieldError {
+      color: #d9d9d9;
+      background-color: #af253c;
+      font-size: 13px;
+      position: absolute;
+      bottom: -8px;
+      margin: auto;
+      left: 0;
+      right: 0;
+      width: fit-content;
+      padding: 3px 7px;
+      border-radius: 5px;
+      z-index: 1;
+      animation: show 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    }
+    .requestErrors {
+      top: 30px;
+      bottom: auto;
+      font-size: 23px;
+    }
+    .authLink {
+      color: #f2ede7;
+      font-size: 21px;
+      a {
+        color: #af253c;
+        font-weight: 700;
+        margin: 0 0 0 17px;
+        transition: 0.2s;
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+    }
+    .fieldWrapper {
+      width: 100%;
+      position: relative;
+    }
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
