@@ -1,6 +1,7 @@
 import authReducer, {
   InitialState,
   actions,
+  signInUserTh,
   signUpUserTh,
 } from './auth-reducer';
 import { SignUpUserType, userAuthApi } from '../api/api';
@@ -28,8 +29,11 @@ const result: { data: SignUpUserType } = {
     userId: 'test123',
   },
 };
+
 // @ts-ignore
 userAuthApiMock.signUp.mockReturnValue(Promise.resolve(result));
+// @ts-ignore
+userAuthApiMock.signIn.mockReturnValue(Promise.resolve(result));
 
 test('SIGN_UP action should return userId', () => {
   const userId = 'userId';
@@ -63,5 +67,39 @@ test('signUpUserTh thunk should maske success dispatch', async () => {
   expect(dispatchMock).toBeCalledTimes(1);
   expect(dispatchMock).toHaveBeenCalledWith(
     actions.signUpUser('test123', null)
+  );
+});
+
+test('SIGN_IN action should return userId', () => {
+  const userId = 'userId';
+  const errorMessage = null;
+
+  const newState = authReducer(state, actions.signInUser(userId, errorMessage));
+
+  expect(newState.userId).toBe(userId);
+  expect(newState.requestErrors).toBe(errorMessage);
+});
+
+test('SIGN_IN action should return error message', () => {
+  const userId = null;
+  const errorMessage = 'Wrong email';
+
+  const newState = authReducer(state, actions.signInUser(userId, errorMessage));
+
+  expect(newState.userId).toBe(userId);
+  expect(newState.requestErrors).toBe(errorMessage);
+});
+
+test('signInUserTh thunk should maske success dispatch', async () => {
+  const thunk = signInUserTh({
+    email: 'test@gmail.com',
+    password: 'test123',
+  });
+
+  await thunk(dispatchMock, getStateMock, {});
+
+  expect(dispatchMock).toBeCalledTimes(1);
+  expect(dispatchMock).toHaveBeenCalledWith(
+    actions.signInUser('test123', null)
   );
 });
