@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { UserSignUpType } from '../types/types';
+import { UserSignUpType, UserSignInType } from '../types/types';
 
 const instance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
@@ -15,7 +15,7 @@ export const userAuthApi = {
   signUp(userCredentials: UserSignUpType) {
     return instance.post<SignUpUserType>('authUser/signup', userCredentials);
   },
-  signIn(userCredentials: any) {
-    return instance.post('authUser/signin', userCredentials);
+  signIn(userCredentials: UserSignInType) {
+    return instance.post<SignUpUserType>('authUser/signin', userCredentials);
   },
 };
