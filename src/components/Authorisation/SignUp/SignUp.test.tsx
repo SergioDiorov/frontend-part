@@ -23,11 +23,13 @@ describe('Test SignUp component', () => {
       </Router>
     );
 
-    expect(screen.getByText('Sign up')).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: 'Sign up' })
+    ).toBeInTheDocument();
     expect(screen.getByPlaceholderText('User name')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Email')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Password')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Sign up' })).toBeInTheDocument();
   });
 
   it('displays error messages for invalid empty form fields', async () => {
@@ -39,7 +41,7 @@ describe('Test SignUp component', () => {
 
     userEvent.click(
       screen.getByRole('button', {
-        name: /submit/i,
+        name: /Sign up/i,
       })
     );
 

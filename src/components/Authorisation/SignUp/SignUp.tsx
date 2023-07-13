@@ -79,7 +79,7 @@ const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
             </label>
 
             <button type='submit' className={style.submitButton}>
-              Submit
+              Sign up
             </button>
             <p className={style.authLink}>
               Have an account?<Link to='/signin'>Sign in</Link>
