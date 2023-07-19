@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 
-import { StateType } from '../../../redux/store';
-import { signInUserTh } from './../../../redux/auth-reducer';
-import { UserSignInType } from '../../../types/types';
+import { StateType } from 'redux/store';
+import { signInUserTh } from 'redux/auth-reducer';
+import { UserSignInType } from 'types/types';
 
 import SignIn from './SignIn';
 

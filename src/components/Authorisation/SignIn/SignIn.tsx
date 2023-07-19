@@ -3,8 +3,8 @@ import { Formik, Field, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import style from '../AuthContainer.module.scss';
-import { UserSignInType } from '../../../types/types';
+import style from 'components/Authorisation/AuthContainer.module.scss';
+import { UserSignInType } from 'types/types';
 
 type SignInProps = {
   signInUser: (data: UserSignInType) => void;

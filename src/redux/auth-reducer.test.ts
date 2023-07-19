@@ -3,13 +3,13 @@ import authReducer, {
   actions,
   signInUserTh,
   signUpUserTh,
-} from './auth-reducer';
-import { SignUpUserType, userAuthApi } from '../api/api';
+} from 'redux/auth-reducer';
+import { SignUpUserType, userAuthApi } from 'api/api';
 
 let state: InitialState;
 const dispatchMock = jest.fn();
 const getStateMock = jest.fn();
-jest.mock('../api/api');
+jest.mock('api/api');
 const userAuthApiMock = userAuthApi as jest.Mocked<typeof userAuthApi>;
 
 beforeEach(() => {

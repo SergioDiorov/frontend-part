@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { StateType } from '../../../redux/store';
-import { UserSignUpType } from '../../../types/types';
-import { signUpUserTh } from './../../../redux/auth-reducer';
-import SignUp from './SignUp';
 import { Navigate } from 'react-router';
+
+import { StateType } from 'redux/store';
+import { UserSignUpType } from 'types/types';
+import { signUpUserTh } from 'redux/auth-reducer';
+import SignUp from 'components/Authorisation/SignUp/SignUp';
 
 type MapStateToPropsType = {
   userId: string | null;

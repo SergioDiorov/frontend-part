@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { UserSignUpType, UserSignInType } from '../types/types';
+import { UserSignUpType, UserSignInType } from 'types/types';
 
 const instance = axios.create({
   withCredentials: true,

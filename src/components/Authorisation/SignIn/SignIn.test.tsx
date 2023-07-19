@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import SignIn from './SignIn';
+import SignIn from 'components/Authorisation/SignIn/SignIn';
 
 describe('Test SignIn component', () => {
   it('should display the error message when rendered with a `requestErrors` prop', () => {
