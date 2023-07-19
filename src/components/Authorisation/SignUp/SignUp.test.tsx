@@ -14,6 +14,7 @@ describe('Test SignUp component', () => {
         />
       </Router>
     );
+
     expect(screen.getByText(/Email is already registered/)).toBeInTheDocument();
   });
 
