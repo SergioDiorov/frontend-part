@@ -1,5 +1,6 @@
-import style from './App.module.scss';
 import { Route, Routes, useLocation } from 'react-router';
+
+import style from './App.module.scss';
 import SignUpContainer from './components/Authorisation/SignUp/SignUpContainer';
 import SignInContainer from './components/Authorisation/SignIn/SignInContainer';
 

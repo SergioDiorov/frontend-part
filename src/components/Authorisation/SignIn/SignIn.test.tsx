@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import SignIn from './SignIn';
 import userEvent from '@testing-library/user-event';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import SignIn from './SignIn';
 
 describe('Test SignIn component', () => {
   it('should display the error message when rendered with a `requestErrors` prop', () => {
@@ -10,6 +11,7 @@ describe('Test SignIn component', () => {
         <SignIn signInUser={() => {}} requestErrors='Wrong email' />
       </Router>
     );
+
     expect(screen.getByText(/Wrong email/)).toBeInTheDocument();
   });
 

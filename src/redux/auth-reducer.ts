@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
+
 import { InferActionTypes, StateType } from './store';
 import { userAuthApi } from './../api/api';
 import { UserSignInType, UserSignUpType } from './../types/types';
