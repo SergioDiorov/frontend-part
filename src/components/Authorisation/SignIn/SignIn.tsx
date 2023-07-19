@@ -1,11 +1,12 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Link } from 'react-router-dom';
-import { UserSignInType } from '../../../types/types';
 import * as Yup from 'yup';
-import style from '../AuthContainer.module.scss';
 
-type Props = {
+import style from '../AuthContainer.module.scss';
+import { UserSignInType } from '../../../types/types';
+
+type SignInProps = {
   signInUser: (data: UserSignInType) => void;
   requestErrors: string | null;
 };
@@ -24,7 +25,7 @@ const SignInSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const SignIn: React.FC<Props> = ({ signInUser, requestErrors }) => {
+const SignIn: React.FC<SignInProps> = ({ signInUser, requestErrors }) => {
   return (
     <div className={style.authContainer}>
       <Formik
