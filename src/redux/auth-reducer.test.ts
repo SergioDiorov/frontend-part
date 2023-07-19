@@ -31,9 +31,10 @@ const result: { data: SignUpUserType } = {
 };
 
 // @ts-ignore
-userAuthApiMock.signUp.mockReturnValue(Promise.resolve(result));
+userAuthApiMock.signUp.mockResolvedValue(result);
+
 // @ts-ignore
-userAuthApiMock.signIn.mockReturnValue(Promise.resolve(result));
+userAuthApiMock.signIn.mockResolvedValue(result);
 
 test('SIGN_UP action should return userId', () => {
   const userId = 'userId';
@@ -70,7 +71,7 @@ test('signUpUserTh thunk should maske success dispatch', async () => {
   );
 });
 
-test('SIGN_IN action should return userId', () => {
+test('SIGN_IN action should return userId when response is success', () => {
   const userId = 'userId';
   const errorMessage = null;
 
