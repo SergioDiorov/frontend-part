@@ -2,9 +2,10 @@ import { connect } from 'react-redux';
 import { Navigate } from 'react-router';
 
 import { StateType } from 'redux/store';
-import { UserSignUpType } from 'types/types';
-import { signUpUserTh } from 'redux/auth-reducer';
-import SignUp from 'components/Authorisation/SignUp/SignUp';
+import { signInUserTh } from 'redux/auth-reducer';
+import { UserSignInType } from 'types/types';
+
+import SignIn from './SignIn';
 
 type MapStateToPropsType = {
   userId: string | null;
@@ -12,7 +13,7 @@ type MapStateToPropsType = {
 };
 
 type MapDispatchToPropsType = {
-  signUpUserTh: (data: UserSignUpType) => void;
+  signInUserTh: (data: UserSignInType) => void;
 };
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType;
@@ -20,12 +21,12 @@ type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 let SignUpContainer: React.FC<PropsType> = ({
   userId,
   requestErrors,
-  signUpUserTh,
+  signInUserTh,
 }) => {
   return userId ? (
     <Navigate to='/profiles' replace={true} />
   ) : (
-    <SignUp signUpUser={signUpUserTh} requestErrors={requestErrors} />
+    <SignIn signInUser={signInUserTh} requestErrors={requestErrors} />
   );
 };
 
@@ -40,5 +41,5 @@ export default connect<
   {},
   StateType
 >(mstp, {
-  signUpUserTh,
+  signInUserTh,
 })(SignUpContainer);

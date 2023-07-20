@@ -1,8 +1,9 @@
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { InferActionTypes, StateType } from './store';
-import { userAuthApi } from './../api/api';
-import { UserSignUpType } from './../types/types';
+
+import { InferActionTypes, StateType } from 'redux/store';
+import { SignUpUserType, userAuthApi } from 'api/api';
+import { UserSignInType, UserSignUpType, responseErrorType } from 'types/types';
 
 let initialState = {
   userId: null as null | string,
@@ -20,12 +21,13 @@ type ThunkType = ThunkAction<
   ReducerActionTypes
 >;
 
+type SignActionType = Pick<SignUpUserType, 'message' | 'user'>;
+
 export const actions = {
-  signUpUser: (userId: string | null, errorMessage: string | null) =>
+  authUser: (data: SignActionType) =>
     ({
-      type: 'SIGN_UP',
-      userId,
-      errorMessage,
+      type: 'AUTH_USER',
+      data,
     } as const),
 };
 
@@ -34,11 +36,26 @@ export const signUpUserTh =
   async (dispatch: Dispatch<ReducerActionTypes>) => {
     try {
       let response = await userAuthApi.signUp(userCredentials);
-      if (response.data.userId) {
-        dispatch(actions.signUpUser(response.data.userId, null));
+      if (response.data.user) {
+        dispatch(actions.authUser(response.data));
       }
-    } catch (error: any) {
-      dispatch(actions.signUpUser(null, error.response.data.message));
+    } catch (error: unknown) {
+      let errorResponse = error as responseErrorType;
+      dispatch(actions.authUser(errorResponse.response.data));
+    }
+  };
+
+export const signInUserTh =
+  (userCredentials: UserSignInType): ThunkType =>
+  async (dispatch: Dispatch<ReducerActionTypes>) => {
+    try {
+      let response = await userAuthApi.signIn(userCredentials);
+      if (response.data) {
+        dispatch(actions.authUser(response.data));
+      }
+    } catch (error: unknown) {
+      let errorResponse = error as responseErrorType;
+      dispatch(actions.authUser(errorResponse.response.data));
     }
   };
 
@@ -47,11 +64,12 @@ const authReducer = (
   action: ReducerActionTypes
 ): InitialState => {
   switch (action.type) {
-    case 'SIGN_UP':
+    case 'AUTH_USER':
       return {
         ...state,
-        userId: action.userId,
-        requestErrors: action.errorMessage,
+        userId: action.data.user?.id || null,
+        requestErrors:
+          action.data.message === 'SUCCESS' ? null : action.data.message,
       };
 
     default:

@@ -1,9 +1,10 @@
 import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Link } from 'react-router-dom';
-import { UserSignUpType } from '../../../types/types';
 import * as Yup from 'yup';
-import style from '../AuthContainer.module.scss';
+
+import { UserSignUpType } from 'types/types';
+import style from 'components/Authorisation/AuthContainer.module.scss';
 
 type Props = {
   signUpUser: (data: UserSignUpType) => void;
@@ -79,7 +80,7 @@ const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
             </label>
 
             <button type='submit' className={style.submitButton}>
-              Submit
+              Sign up
             </button>
             <p className={style.authLink}>
               Have an account?<Link to='/signin'>Sign in</Link>

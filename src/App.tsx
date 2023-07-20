@@ -1,7 +1,8 @@
-import style from './App.module.scss';
 import { Route, Routes, useLocation } from 'react-router';
-import SignIn from './components/Authorisation/SignIn/SignIn';
-import SignUpContainer from './components/Authorisation/SignUp/SignUpContainer';
+
+import style from 'App.module.scss';
+import SignUpContainer from 'components/Authorisation/SignUp/SignUpContainer';
+import SignInContainer from 'components/Authorisation/SignIn/SignInContainer';
 
 let App: React.FC = () => {
   let location = useLocation();
@@ -11,7 +12,7 @@ let App: React.FC = () => {
       {!(location.pathname === '/signin' || location.pathname === '/signup') &&
         '<Sidebar></Sidebar>'}
       <Routes>
-        <Route path='/signin' element={<SignIn />} />
+        <Route path='/signin' element={<SignInContainer />} />
         <Route path='/signup' element={<SignUpContainer />} />
         <Route path='/profiles' element={'<Profiles />'} />
         <Route path='/users' element={'<Users />'} />
