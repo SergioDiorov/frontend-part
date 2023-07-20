@@ -1,3 +1,5 @@
+import { AxiosResponse } from 'axios';
+
 import authReducer, {
   InitialState,
   actions,
@@ -22,18 +24,16 @@ beforeEach(() => {
   userAuthApiMock.signUp.mockClear();
 });
 
-const result: { data: SignUpUserType } = {
+const result = {
   data: {
     code: 201,
     message: 'SUCCESS',
     userId: 'test123',
   },
-};
+} as unknown as AxiosResponse<SignUpUserType, any>;
 
-// @ts-ignore
 userAuthApiMock.signUp.mockResolvedValue(result);
 
-// @ts-ignore
 userAuthApiMock.signIn.mockResolvedValue(result);
 
 test('SIGN_UP action should return userId', () => {
