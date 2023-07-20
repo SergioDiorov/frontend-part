@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 
 import { InferActionTypes, StateType } from 'redux/store';
-import { userAuthApi } from 'api/api';
+import { SignUpUserType, userAuthApi } from 'api/api';
 import { UserSignInType, UserSignUpType, responseErrorType } from 'types/types';
 
 let initialState = {
@@ -21,33 +21,19 @@ type ThunkType = ThunkAction<
   ReducerActionTypes
 >;
 
+type SignActionType = Pick<SignUpUserType, 'message' | 'user'>;
+
 export const actions = {
-  signUpUserSuccess: (userId: string, errorMessage: null) =>
+  signUpUser: (data: SignActionType) =>
     ({
       type: 'SIGN_UP',
-      userId,
-      errorMessage,
+      data,
     } as const),
 
-  signUpUserError: (userId: null, errorMessage: string) =>
-    ({
-      type: 'SIGN_UP',
-      userId,
-      errorMessage,
-    } as const),
-
-  signInUserSuccess: (userId: string, errorMessage: null) =>
+  signInUser: (data: SignActionType) =>
     ({
       type: 'SIGN_IN',
-      userId,
-      errorMessage,
-    } as const),
-
-  signInUserError: (userId: null, errorMessage: string) =>
-    ({
-      type: 'SIGN_IN',
-      userId,
-      errorMessage,
+      data,
     } as const),
 };
 
@@ -56,14 +42,12 @@ export const signUpUserTh =
   async (dispatch: Dispatch<ReducerActionTypes>) => {
     try {
       let response = await userAuthApi.signUp(userCredentials);
-      if (response.data.userId) {
-        dispatch(actions.signUpUserSuccess(response.data.userId, null));
+      if (response.data.user) {
+        dispatch(actions.signUpUser(response.data));
       }
     } catch (error: unknown) {
       let errorResponse = error as responseErrorType;
-      dispatch(
-        actions.signUpUserError(null, errorResponse.response.data.message)
-      );
+      dispatch(actions.signUpUser(errorResponse.response.data));
     }
   };
 
@@ -72,14 +56,12 @@ export const signInUserTh =
   async (dispatch: Dispatch<ReducerActionTypes>) => {
     try {
       let response = await userAuthApi.signIn(userCredentials);
-      if (response.data.userId) {
-        dispatch(actions.signInUserSuccess(response.data.userId, null));
+      if (response.data) {
+        dispatch(actions.signInUser(response.data));
       }
     } catch (error: unknown) {
       let errorResponse = error as responseErrorType;
-      dispatch(
-        actions.signInUserError(null, errorResponse.response.data.message)
-      );
+      dispatch(actions.signInUser(errorResponse.response.data));
     }
   };
 
@@ -91,14 +73,16 @@ const authReducer = (
     case 'SIGN_UP':
       return {
         ...state,
-        userId: action.userId,
-        requestErrors: action.errorMessage,
+        userId: action.data.user?.id || null,
+        requestErrors:
+          action.data.message === 'SUCCESS' ? null : action.data.message,
       };
     case 'SIGN_IN':
       return {
         ...state,
-        userId: action.userId,
-        requestErrors: action.errorMessage,
+        userId: action.data.user?.id || null,
+        requestErrors:
+          action.data.message === 'SUCCESS' ? null : action.data.message,
       };
 
     default:

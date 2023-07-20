@@ -28,7 +28,12 @@ const result = {
   data: {
     code: 201,
     message: 'SUCCESS',
-    userId: 'test123',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    user: {
+      email: 'test@gmail.com',
+      id: 'test123',
+    },
   },
 } as unknown as AxiosResponse<SignUpUserType, any>;
 
@@ -37,82 +42,99 @@ userAuthApiMock.signUp.mockResolvedValue(result);
 userAuthApiMock.signIn.mockResolvedValue(result);
 
 test('SIGN_UP action should return userId', () => {
-  const userId = 'userId';
-  const errorMessage = null;
+  const data = {
+    user: {
+      email: 'test@gmail.com',
+      id: 'test123',
+    },
+    message: 'SUCCESS',
+  };
 
-  const newState = authReducer(
-    state,
-    actions.signUpUserSuccess(userId, errorMessage)
-  );
+  const newState = authReducer(state, actions.signUpUser(data));
 
-  expect(newState.userId).toBe(userId);
-  expect(newState.requestErrors).toBe(errorMessage);
+  expect(newState.userId).toBe(data.user.id);
+  expect(newState.requestErrors).toBe(null);
 });
 
 test('SIGN_UP action should return error message', () => {
-  const userId = null;
-  const errorMessage = 'Email is already registered';
+  const data = {
+    message: 'Email is already registered',
+  };
+  const newState = authReducer(state, actions.signUpUser(data));
 
-  const newState = authReducer(
-    state,
-    actions.signUpUserError(userId, errorMessage)
-  );
-
-  expect(newState.userId).toBe(userId);
-  expect(newState.requestErrors).toBe(errorMessage);
+  expect(newState.userId).toBe(null);
+  expect(newState.requestErrors).toBe(data.message);
 });
 
 test('signUpUserTh thunk should maske success dispatch', async () => {
   const thunk = signUpUserTh({
     userName: 'test',
     email: 'test@gmail.com',
-    password: 'test123',
+    password: 'password',
   });
+
+  const responseData = {
+    code: 201,
+    message: 'SUCCESS',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    user: {
+      email: 'test@gmail.com',
+      id: 'test123',
+    },
+  };
 
   await thunk(dispatchMock, getStateMock, {});
 
   expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenCalledWith(
-    actions.signUpUserSuccess('test123', null)
-  );
+  expect(dispatchMock).toHaveBeenCalledWith(actions.signUpUser(responseData));
 });
 
 test('SIGN_IN action should return userId when response is success', () => {
-  const userId = 'userId';
-  const errorMessage = null;
+  const data = {
+    user: {
+      email: 'test@gmail.com',
+      id: 'userId',
+    },
+    message: 'SUCCESS',
+  };
 
-  const newState = authReducer(
-    state,
-    actions.signInUserSuccess(userId, errorMessage)
-  );
+  const newState = authReducer(state, actions.signInUser(data));
 
-  expect(newState.userId).toBe(userId);
-  expect(newState.requestErrors).toBe(errorMessage);
+  expect(newState.userId).toBe(data.user.id);
+  expect(newState.requestErrors).toBe(null);
 });
 
 test('SIGN_IN action should return error message', () => {
-  const userId = null;
-  const errorMessage = 'Wrong email';
+  const data = {
+    message: 'Wrong email',
+  };
 
-  const newState = authReducer(
-    state,
-    actions.signInUserError(userId, errorMessage)
-  );
+  const newState = authReducer(state, actions.signInUser(data));
 
-  expect(newState.userId).toBe(userId);
-  expect(newState.requestErrors).toBe(errorMessage);
+  expect(newState.userId).toBe(null);
+  expect(newState.requestErrors).toBe(data.message);
 });
 
 test('signInUserTh thunk should maske success dispatch', async () => {
   const thunk = signInUserTh({
     email: 'test@gmail.com',
-    password: 'test123',
+    password: 'password',
   });
+
+  const data = {
+    code: 201,
+    message: 'SUCCESS',
+    accessToken: 'accessToken',
+    refreshToken: 'refreshToken',
+    user: {
+      email: 'test@gmail.com',
+      id: 'test123',
+    },
+  };
 
   await thunk(dispatchMock, getStateMock, {});
 
   expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenCalledWith(
-    actions.signInUserSuccess('test123', null)
-  );
+  expect(dispatchMock).toHaveBeenCalledWith(actions.signInUser(data));
 });

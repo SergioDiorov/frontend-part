@@ -10,7 +10,12 @@ const instance = axios.create({
 export type SignUpUserType = {
   code: number;
   message: string;
-  userId?: string;
+  accessToken?: string;
+  refreshToken?: string;
+  user?: {
+    email: string;
+    id: string;
+  };
 };
 
 export const userAuthApi = {
