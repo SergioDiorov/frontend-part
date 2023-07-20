@@ -3,7 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 
 import { InferActionTypes, StateType } from 'redux/store';
 import { userAuthApi } from 'api/api';
-import { UserSignInType, UserSignUpType } from 'types/types';
+import { UserSignInType, UserSignUpType, responseErrorType } from 'types/types';
 
 let initialState = {
   userId: null as null | string,
@@ -59,8 +59,11 @@ export const signUpUserTh =
       if (response.data.userId) {
         dispatch(actions.signUpUserSuccess(response.data.userId, null));
       }
-    } catch (error: any) {
-      dispatch(actions.signUpUserError(null, error.response.data.message));
+    } catch (error: unknown) {
+      let errorResponse = error as responseErrorType;
+      dispatch(
+        actions.signUpUserError(null, errorResponse.response.data.message)
+      );
     }
   };
 
@@ -72,8 +75,11 @@ export const signInUserTh =
       if (response.data.userId) {
         dispatch(actions.signInUserSuccess(response.data.userId, null));
       }
-    } catch (error: any) {
-      dispatch(actions.signInUserError(null, error.response.data.message));
+    } catch (error: unknown) {
+      let errorResponse = error as responseErrorType;
+      dispatch(
+        actions.signInUserError(null, errorResponse.response.data.message)
+      );
     }
   };
 
