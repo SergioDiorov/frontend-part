@@ -40,7 +40,10 @@ test('SIGN_UP action should return userId', () => {
   const userId = 'userId';
   const errorMessage = null;
 
-  const newState = authReducer(state, actions.signUpUser(userId, errorMessage));
+  const newState = authReducer(
+    state,
+    actions.signUpUserSuccess(userId, errorMessage)
+  );
 
   expect(newState.userId).toBe(userId);
   expect(newState.requestErrors).toBe(errorMessage);
@@ -50,7 +53,10 @@ test('SIGN_UP action should return error message', () => {
   const userId = null;
   const errorMessage = 'Email is already registered';
 
-  const newState = authReducer(state, actions.signUpUser(userId, errorMessage));
+  const newState = authReducer(
+    state,
+    actions.signUpUserError(userId, errorMessage)
+  );
 
   expect(newState.userId).toBe(userId);
   expect(newState.requestErrors).toBe(errorMessage);
@@ -67,7 +73,7 @@ test('signUpUserTh thunk should maske success dispatch', async () => {
 
   expect(dispatchMock).toBeCalledTimes(1);
   expect(dispatchMock).toHaveBeenCalledWith(
-    actions.signUpUser('test123', null)
+    actions.signUpUserSuccess('test123', null)
   );
 });
 
@@ -75,7 +81,10 @@ test('SIGN_IN action should return userId when response is success', () => {
   const userId = 'userId';
   const errorMessage = null;
 
-  const newState = authReducer(state, actions.signInUser(userId, errorMessage));
+  const newState = authReducer(
+    state,
+    actions.signInUserSuccess(userId, errorMessage)
+  );
 
   expect(newState.userId).toBe(userId);
   expect(newState.requestErrors).toBe(errorMessage);
@@ -85,7 +94,10 @@ test('SIGN_IN action should return error message', () => {
   const userId = null;
   const errorMessage = 'Wrong email';
 
-  const newState = authReducer(state, actions.signInUser(userId, errorMessage));
+  const newState = authReducer(
+    state,
+    actions.signInUserError(userId, errorMessage)
+  );
 
   expect(newState.userId).toBe(userId);
   expect(newState.requestErrors).toBe(errorMessage);
@@ -101,6 +113,6 @@ test('signInUserTh thunk should maske success dispatch', async () => {
 
   expect(dispatchMock).toBeCalledTimes(1);
   expect(dispatchMock).toHaveBeenCalledWith(
-    actions.signInUser('test123', null)
+    actions.signInUserSuccess('test123', null)
   );
 });

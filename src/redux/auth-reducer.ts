@@ -22,13 +22,28 @@ type ThunkType = ThunkAction<
 >;
 
 export const actions = {
-  signUpUser: (userId: string | null, errorMessage: string | null) =>
+  signUpUserSuccess: (userId: string, errorMessage: null) =>
     ({
       type: 'SIGN_UP',
       userId,
       errorMessage,
     } as const),
-  signInUser: (userId: string | null, errorMessage: string | null) =>
+
+  signUpUserError: (userId: null, errorMessage: string) =>
+    ({
+      type: 'SIGN_UP',
+      userId,
+      errorMessage,
+    } as const),
+
+  signInUserSuccess: (userId: string, errorMessage: null) =>
+    ({
+      type: 'SIGN_IN',
+      userId,
+      errorMessage,
+    } as const),
+
+  signInUserError: (userId: null, errorMessage: string) =>
     ({
       type: 'SIGN_IN',
       userId,
@@ -42,10 +57,10 @@ export const signUpUserTh =
     try {
       let response = await userAuthApi.signUp(userCredentials);
       if (response.data.userId) {
-        dispatch(actions.signUpUser(response.data.userId, null));
+        dispatch(actions.signUpUserSuccess(response.data.userId, null));
       }
     } catch (error: any) {
-      dispatch(actions.signUpUser(null, error.response.data.message));
+      dispatch(actions.signUpUserError(null, error.response.data.message));
     }
   };
 
@@ -55,10 +70,10 @@ export const signInUserTh =
     try {
       let response = await userAuthApi.signIn(userCredentials);
       if (response.data.userId) {
-        dispatch(actions.signInUser(response.data.userId, null));
+        dispatch(actions.signInUserSuccess(response.data.userId, null));
       }
     } catch (error: any) {
-      dispatch(actions.signInUser(null, error.response.data.message));
+      dispatch(actions.signInUserError(null, error.response.data.message));
     }
   };
 
