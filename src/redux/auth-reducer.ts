@@ -24,15 +24,9 @@ type ThunkType = ThunkAction<
 type SignActionType = Pick<SignUpUserType, 'message' | 'user'>;
 
 export const actions = {
-  signUpUser: (data: SignActionType) =>
+  authUser: (data: SignActionType) =>
     ({
-      type: 'SIGN_UP',
-      data,
-    } as const),
-
-  signInUser: (data: SignActionType) =>
-    ({
-      type: 'SIGN_IN',
+      type: 'AUTH_USER',
       data,
     } as const),
 };
@@ -43,11 +37,11 @@ export const signUpUserTh =
     try {
       let response = await userAuthApi.signUp(userCredentials);
       if (response.data.user) {
-        dispatch(actions.signUpUser(response.data));
+        dispatch(actions.authUser(response.data));
       }
     } catch (error: unknown) {
       let errorResponse = error as responseErrorType;
-      dispatch(actions.signUpUser(errorResponse.response.data));
+      dispatch(actions.authUser(errorResponse.response.data));
     }
   };
 
@@ -57,11 +51,11 @@ export const signInUserTh =
     try {
       let response = await userAuthApi.signIn(userCredentials);
       if (response.data) {
-        dispatch(actions.signInUser(response.data));
+        dispatch(actions.authUser(response.data));
       }
     } catch (error: unknown) {
       let errorResponse = error as responseErrorType;
-      dispatch(actions.signInUser(errorResponse.response.data));
+      dispatch(actions.authUser(errorResponse.response.data));
     }
   };
 
@@ -70,14 +64,7 @@ const authReducer = (
   action: ReducerActionTypes
 ): InitialState => {
   switch (action.type) {
-    case 'SIGN_UP':
-      return {
-        ...state,
-        userId: action.data.user?.id || null,
-        requestErrors:
-          action.data.message === 'SUCCESS' ? null : action.data.message,
-      };
-    case 'SIGN_IN':
+    case 'AUTH_USER':
       return {
         ...state,
         userId: action.data.user?.id || null,

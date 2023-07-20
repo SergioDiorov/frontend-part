@@ -50,7 +50,7 @@ test('SIGN_UP action should return userId', () => {
     message: 'SUCCESS',
   };
 
-  const newState = authReducer(state, actions.signUpUser(data));
+  const newState = authReducer(state, actions.authUser(data));
 
   expect(newState.userId).toBe(data.user.id);
   expect(newState.requestErrors).toBe(null);
@@ -60,7 +60,7 @@ test('SIGN_UP action should return error message', () => {
   const data = {
     message: 'Email is already registered',
   };
-  const newState = authReducer(state, actions.signUpUser(data));
+  const newState = authReducer(state, actions.authUser(data));
 
   expect(newState.userId).toBe(null);
   expect(newState.requestErrors).toBe(data.message);
@@ -87,7 +87,7 @@ test('signUpUserTh thunk should maske success dispatch', async () => {
   await thunk(dispatchMock, getStateMock, {});
 
   expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenCalledWith(actions.signUpUser(responseData));
+  expect(dispatchMock).toHaveBeenCalledWith(actions.authUser(responseData));
 });
 
 test('SIGN_IN action should return userId when response is success', () => {
@@ -99,7 +99,7 @@ test('SIGN_IN action should return userId when response is success', () => {
     message: 'SUCCESS',
   };
 
-  const newState = authReducer(state, actions.signInUser(data));
+  const newState = authReducer(state, actions.authUser(data));
 
   expect(newState.userId).toBe(data.user.id);
   expect(newState.requestErrors).toBe(null);
@@ -110,7 +110,7 @@ test('SIGN_IN action should return error message', () => {
     message: 'Wrong email',
   };
 
-  const newState = authReducer(state, actions.signInUser(data));
+  const newState = authReducer(state, actions.authUser(data));
 
   expect(newState.userId).toBe(null);
   expect(newState.requestErrors).toBe(data.message);
@@ -136,5 +136,5 @@ test('signInUserTh thunk should maske success dispatch', async () => {
   await thunk(dispatchMock, getStateMock, {});
 
   expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenCalledWith(actions.signInUser(data));
+  expect(dispatchMock).toHaveBeenCalledWith(actions.authUser(data));
 });
