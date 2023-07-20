@@ -15,7 +15,7 @@ describe('Test SignIn component', () => {
     expect(screen.getByText(/Wrong email/)).toBeInTheDocument();
   });
 
-  it('check the SignIn form rendering', () => {
+  it('should render SignIn form scuessfuly', () => {
     render(
       <Router>
         <SignIn signInUser={() => {}} requestErrors={null} />
@@ -30,7 +30,7 @@ describe('Test SignIn component', () => {
     expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
   });
 
-  it('displays error messages for invalid empty form fields', async () => {
+  it('should display error messages if form fields are empty', async () => {
     render(
       <Router>
         <SignIn signInUser={() => {}} requestErrors={null} />

@@ -18,7 +18,7 @@ describe('Test SignUp component', () => {
     expect(screen.getByText(/Email is already registered/)).toBeInTheDocument();
   });
 
-  it('check the SignUp form rendering', () => {
+  it('should render SignUp form scuessfuly', () => {
     render(
       <Router>
         <SignUp signUpUser={() => {}} requestErrors={null} />
@@ -34,7 +34,7 @@ describe('Test SignUp component', () => {
     expect(screen.getByRole('button', { name: 'Sign up' })).toBeInTheDocument();
   });
 
-  it('displays error messages for invalid empty form fields', async () => {
+  it('should display error messages if form fields are empty', async () => {
     render(
       <Router>
         <SignUp signUpUser={() => {}} requestErrors={null} />
