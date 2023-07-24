@@ -1,28 +1,24 @@
 import { AxiosResponse } from 'axios';
 
 import authReducer, {
-  InitialState,
-  actions,
   signInUserTh,
   signUpUserTh,
+  InitialState,
 } from 'redux/auth-reducer';
 import { SignUpUserType, userAuthApi } from 'api/api';
 
-let state: InitialState;
-const dispatchMock = jest.fn();
-const getStateMock = jest.fn();
 jest.mock('api/api');
 const userAuthApiMock = userAuthApi as jest.Mocked<typeof userAuthApi>;
 
 beforeEach(() => {
-  state = {
-    userId: null,
-    requestErrors: null,
-  };
-  dispatchMock.mockClear();
-  getStateMock.mockClear();
   userAuthApiMock.signUp.mockClear();
+  userAuthApiMock.signIn.mockClear();
 });
+
+const initialState: InitialState = {
+  userId: null,
+  requestErrors: null,
+};
 
 const result = {
   data: {
@@ -38,35 +34,20 @@ const result = {
 } as unknown as AxiosResponse<SignUpUserType, any>;
 
 userAuthApiMock.signUp.mockResolvedValue(result);
-
 userAuthApiMock.signIn.mockResolvedValue(result);
 
-test('SIGN_UP action should return userId', () => {
-  const data = {
-    user: {
-      email: 'test@gmail.com',
-      id: 'test123',
-    },
-    message: 'SUCCESS',
+test('should return an empty initial state', () => {
+  const result = authReducer(undefined, { type: '' });
+
+  const initialState = {
+    userId: null,
+    requestErrors: null,
   };
 
-  const newState = authReducer(state, actions.authUser(data));
-
-  expect(newState.userId).toBe(data.user.id);
-  expect(newState.requestErrors).toBe(null);
+  expect(result).toEqual(initialState);
 });
 
-test('SIGN_UP action should return error message', () => {
-  const data = {
-    message: 'Email is already registered',
-  };
-  const newState = authReducer(state, actions.authUser(data));
-
-  expect(newState.userId).toBe(null);
-  expect(newState.requestErrors).toBe(data.message);
-});
-
-test('signUpUserTh thunk should maske success dispatch', async () => {
+test('signUpUserTh thunk should maske a success dispatch', async () => {
   const thunk = signUpUserTh({
     userName: 'test',
     email: 'test@gmail.com',
@@ -84,45 +65,26 @@ test('signUpUserTh thunk should maske success dispatch', async () => {
     },
   };
 
-  await thunk(dispatchMock, getStateMock, {});
+  const dispatch = jest.fn();
+  await thunk(dispatch, () => ({}), {});
 
-  expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenCalledWith(actions.authUser(responseData));
+  const { calls } = dispatch.mock;
+  expect(calls).toHaveLength(2);
+
+  const [start, end] = calls;
+
+  expect(start[0].type).toBe('auth/signUpUser/pending');
+  expect(end[0].type).toBe('auth/signUpUser/fulfilled');
+  expect(end[0].payload).toEqual(responseData);
 });
 
-test('SIGN_IN action should return userId when response is success', () => {
-  const data = {
-    user: {
-      email: 'test@gmail.com',
-      id: 'userId',
-    },
-    message: 'SUCCESS',
-  };
-
-  const newState = authReducer(state, actions.authUser(data));
-
-  expect(newState.userId).toBe(data.user.id);
-  expect(newState.requestErrors).toBe(null);
-});
-
-test('SIGN_IN action should return error message', () => {
-  const data = {
-    message: 'Wrong email',
-  };
-
-  const newState = authReducer(state, actions.authUser(data));
-
-  expect(newState.userId).toBe(null);
-  expect(newState.requestErrors).toBe(data.message);
-});
-
-test('signInUserTh thunk should maske success dispatch', async () => {
+test('signInUserTh thunk should maske a success dispatch', async () => {
   const thunk = signInUserTh({
     email: 'test@gmail.com',
     password: 'password',
   });
 
-  const data = {
+  const responseData = {
     code: 201,
     message: 'SUCCESS',
     accessToken: 'accessToken',
@@ -133,8 +95,83 @@ test('signInUserTh thunk should maske success dispatch', async () => {
     },
   };
 
-  await thunk(dispatchMock, getStateMock, {});
+  const dispatch = jest.fn();
+  await thunk(dispatch, () => ({}), {});
 
-  expect(dispatchMock).toBeCalledTimes(1);
-  expect(dispatchMock).toHaveBeenCalledWith(actions.authUser(data));
+  const { calls } = dispatch.mock;
+  expect(calls).toHaveLength(2);
+
+  const [start, end] = calls;
+
+  expect(start[0].type).toBe('auth/signInUser/pending');
+  expect(end[0].type).toBe('auth/signInUser/fulfilled');
+  expect(end[0].payload).toEqual(responseData);
+});
+
+test('SIGN_UP action should return userId', () => {
+  const data = {
+    user: {
+      email: 'test@gmail.com',
+      id: 'test123',
+    },
+    message: 'SUCCESS',
+  };
+
+  const action = {
+    type: signUpUserTh.fulfilled.type,
+    payload: data,
+  };
+  const newState = authReducer(initialState, action);
+
+  expect(newState.userId).toBe(data.user.id);
+  expect(newState.requestErrors).toBe(null);
+});
+
+test('SIGN_UP action should return error message', () => {
+  const data = {
+    message: 'Email is already registered',
+  };
+
+  const action = {
+    type: signUpUserTh.fulfilled.type,
+    payload: data,
+  };
+  const newState = authReducer(initialState, action);
+
+  expect(newState.userId).toBe(null);
+  expect(newState.requestErrors).toBe(data.message);
+});
+
+test('SIGN_IN action should return userId', () => {
+  const data = {
+    user: {
+      email: 'test@gmail.com',
+      id: 'userId',
+    },
+    message: 'SUCCESS',
+  };
+
+  const action = {
+    type: signInUserTh.fulfilled.type,
+    payload: data,
+  };
+  const newState = authReducer(initialState, action);
+
+  expect(newState.userId).toBe(data.user.id);
+  expect(newState.requestErrors).toBe(null);
+});
+
+test('SIGN_IN action should return error message', () => {
+  const data = {
+    message: 'Wrong email',
+  };
+
+  const action = {
+    type: signInUserTh.fulfilled.type,
+    payload: data,
+  };
+  const newState = authReducer(initialState, action);
+
+  expect(newState.userId).toBe(null);
+  expect(newState.requestErrors).toBe(data.message);
 });

@@ -1,80 +1,69 @@
-import { Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { InferActionTypes, StateType } from 'redux/store';
 import { SignUpUserType, userAuthApi } from 'api/api';
 import { UserSignInType, UserSignUpType, responseErrorType } from 'types/types';
 
-let initialState = {
-  userId: null as null | string,
-  requestErrors: null as null | string,
+export type InitialState = {
+  userId: string | null;
+  requestErrors: string | null;
 };
 
-export type InitialState = typeof initialState;
-
-type ReducerActionTypes = InferActionTypes<typeof actions>;
-
-type ThunkType = ThunkAction<
-  Promise<void>,
-  StateType,
-  unknown,
-  ReducerActionTypes
->;
+const initialState: InitialState = {
+  userId: null,
+  requestErrors: null,
+};
 
 type SignActionType = Pick<SignUpUserType, 'message' | 'user'>;
 
-export const actions = {
-  authUser: (data: SignActionType) =>
-    ({
-      type: 'AUTH_USER',
-      data,
-    } as const),
-};
-
-export const signUpUserTh =
-  (userCredentials: UserSignUpType): ThunkType =>
-  async (dispatch: Dispatch<ReducerActionTypes>) => {
+export const signUpUserTh = createAsyncThunk(
+  'auth/signUpUser',
+  async (userCredentials: UserSignUpType) => {
     try {
-      let response = await userAuthApi.signUp(userCredentials);
-      if (response.data.user) {
-        dispatch(actions.authUser(response.data));
-      }
+      const response = await userAuthApi.signUp(userCredentials);
+      return response.data;
     } catch (error: unknown) {
       let errorResponse = error as responseErrorType;
-      dispatch(actions.authUser(errorResponse.response.data));
+      console.log(errorResponse);
+      return errorResponse.response.data;
     }
-  };
-
-export const signInUserTh =
-  (userCredentials: UserSignInType): ThunkType =>
-  async (dispatch: Dispatch<ReducerActionTypes>) => {
-    try {
-      let response = await userAuthApi.signIn(userCredentials);
-      if (response.data) {
-        dispatch(actions.authUser(response.data));
-      }
-    } catch (error: unknown) {
-      let errorResponse = error as responseErrorType;
-      dispatch(actions.authUser(errorResponse.response.data));
-    }
-  };
-
-const authReducer = (
-  state = initialState,
-  action: ReducerActionTypes
-): InitialState => {
-  switch (action.type) {
-    case 'AUTH_USER':
-      return {
-        ...state,
-        userId: action.data.user?.id || null,
-        requestErrors:
-          action.data.message === 'SUCCESS' ? null : action.data.message,
-      };
-
-    default:
-      return state;
   }
-};
+);
 
-export default authReducer;
+export const signInUserTh = createAsyncThunk(
+  'auth/signInUser',
+  async (userCredentials: UserSignInType) => {
+    try {
+      const response = await userAuthApi.signIn(userCredentials);
+      return response.data;
+    } catch (error: unknown) {
+      let errorResponse = error as responseErrorType;
+      return errorResponse.response.data;
+    }
+  }
+);
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(
+      signUpUserTh.fulfilled,
+      (state, action: PayloadAction<SignActionType>) => {
+        state.userId = action.payload.user?.id || null;
+        state.requestErrors =
+          action.payload.message === 'SUCCESS' ? null : action.payload.message;
+      }
+    );
+    builder.addCase(
+      signInUserTh.fulfilled,
+      (state, action: PayloadAction<SignActionType>) => {
+        state.userId = action.payload.user?.id || null;
+        state.requestErrors =
+          action.payload.message === 'SUCCESS' ? null : action.payload.message;
+      }
+    );
+  },
+});
+
+export default authSlice.reducer;
