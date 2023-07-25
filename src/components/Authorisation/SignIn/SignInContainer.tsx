@@ -16,7 +16,6 @@ let SignUpContainer: React.FC = () => {
   const handleSignInUser = (userCredentials: UserSignInType) => {
     dispatch(signInUserTh(userCredentials));
   };
-  console.log(userId, requestErrors);
 
   return userId ? (
     <Navigate to='/profiles' replace={true} />

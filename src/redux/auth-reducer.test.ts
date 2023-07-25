@@ -5,7 +5,7 @@ import authReducer, {
   signUpUserTh,
   InitialState,
 } from 'redux/auth-reducer';
-import { SignUpUserType, userAuthApi } from 'api/api';
+import { AuthResponseType, userAuthApi } from 'api/api';
 
 jest.mock('api/api');
 const userAuthApiMock = userAuthApi as jest.Mocked<typeof userAuthApi>;
@@ -18,6 +18,7 @@ beforeEach(() => {
 const initialState: InitialState = {
   userId: null,
   requestErrors: null,
+  isLoading: false,
 };
 
 const result = {
@@ -31,7 +32,7 @@ const result = {
       id: 'test123',
     },
   },
-} as unknown as AxiosResponse<SignUpUserType, any>;
+} as unknown as AxiosResponse<AuthResponseType, any>;
 
 userAuthApiMock.signUp.mockResolvedValue(result);
 userAuthApiMock.signIn.mockResolvedValue(result);
@@ -42,6 +43,7 @@ test('should return an empty initial state', () => {
   const initialState = {
     userId: null,
     requestErrors: null,
+    isLoading: false,
   };
 
   expect(result).toEqual(initialState);
