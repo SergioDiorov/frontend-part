@@ -6,7 +6,7 @@ import { signUpUserTh } from 'redux/auth-reducer';
 import { UserSignUpType } from 'types/types';
 import SignUp from 'components/Authorisation/SignUp/SignUp';
 
-let SignUpContainer: React.FC = () => {
+const SignUpContainer: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
   const requestErrors = useSelector(
     (state: StateType) => state.auth.requestErrors

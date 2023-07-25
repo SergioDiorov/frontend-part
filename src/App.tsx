@@ -10,8 +10,8 @@ import Sidebar from 'components/Sidebar/Sidebar';
 import Profiles from './components/MainContent/Profiles/Profiles';
 import { checkUserAuthTh } from 'redux/auth-reducer';
 
-let App: React.FC = () => {
-  let location = useLocation();
+const App: React.FC = () => {
+  const location = useLocation();
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector((state: StateType) => state.auth.isLoading);
 

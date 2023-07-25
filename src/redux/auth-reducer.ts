@@ -25,7 +25,7 @@ export const signUpUserTh = createAsyncThunk(
       localStorage.setItem('token', response.data.accessToken);
       return response.data;
     } catch (error: unknown) {
-      let errorResponse = error as responseErrorType;
+      const errorResponse = error as responseErrorType;
       return errorResponse.response.data;
     }
   }
@@ -39,7 +39,7 @@ export const signInUserTh = createAsyncThunk(
       localStorage.setItem('token', response.data.accessToken);
       return response.data;
     } catch (error: unknown) {
-      let errorResponse = error as responseErrorType;
+      const errorResponse = error as responseErrorType;
       return errorResponse.response.data;
     }
   }
@@ -50,7 +50,7 @@ export const signOutUserTh = createAsyncThunk('auth/signOutUser', async () => {
     await userAuthApi.signOut();
     localStorage.removeItem('token');
   } catch (error: unknown) {
-    let errorResponse = error as responseErrorType;
+    const errorResponse = error as responseErrorType;
     return errorResponse.response.data.message;
   }
 });
@@ -63,7 +63,7 @@ export const checkUserAuthTh = createAsyncThunk(
       localStorage.setItem('token', response.data.accessToken);
       return response.data;
     } catch (error: unknown) {
-      let errorResponse = error as responseErrorType;
+      const errorResponse = error as responseErrorType;
       return errorResponse.response.data;
     }
   }
