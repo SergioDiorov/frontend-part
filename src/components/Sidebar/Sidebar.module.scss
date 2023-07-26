@@ -1,0 +1,67 @@
+.sidebarContainer {
+  background: #12130f;
+  box-shadow: 9px 4px 26px 0px rgba(0, 0, 0, 0.25);
+  color: #f2ede7;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 35px 0 28px 0;
+
+  .sidebarContent {
+    text-align: center;
+    .userImage {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      background-color: #f2ede7;
+    }
+    .userRole {
+      color: #f2ede7;
+      font-size: 21px;
+      line-height: normal;
+      margin: 10px 0 85px 0;
+    }
+
+    .navLink {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 27px;
+      color: #fff;
+      height: 71px;
+      transition: 0.2s ease;
+      &:hover {
+        background-color: rgb(197, 54, 78);
+      }
+    }
+
+    .activeNavLink {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 27px;
+      width: 100%;
+      height: 71px;
+      background-color: #af253c;
+      color: #fff;
+    }
+
+    .activeNavLink > .icon,
+    .navLink > .icon {
+      margin: 0 10px 0 0;
+    }
+  }
+  .logOutButton {
+    text-align: left;
+    color: #fff;
+    background: none;
+    font-size: 21px;
+    padding: 0 27px 0 27px;
+    transition: 0.2s ease;
+    &:hover {
+      color: #c7c7c7;
+    }
+    &:active {
+      transform: scale(0.99);
+    }
+  }
+}
