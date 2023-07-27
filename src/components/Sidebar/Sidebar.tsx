@@ -11,13 +11,13 @@ import { ReactComponent as Dashboard } from 'img/icons/dashboard.svg';
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const admin = useSelector((state: StateType) => state.user.admin);
+  const isAdmin = useSelector((state: StateType) => state.user.isAdmin);
 
   return (
     <div className={style.sidebarContainer}>
       <div className={style.sidebarContent}>
         <img src={avatar} alt='' className={style.userImage} />
-        <p className={style.userRole}>{admin ? 'Admin' : ' Simple User'}</p>
+        <p className={style.userRole}>{isAdmin ? 'Admin' : ' Simple User'}</p>
         <NavLink
           to='/profiles'
           className={({ isActive }) =>
@@ -33,7 +33,7 @@ const Sidebar: React.FC = () => {
           Profiles
         </NavLink>
 
-        {admin && (
+        {isAdmin && (
           <>
             <NavLink
               to='/users'

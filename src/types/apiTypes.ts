@@ -2,7 +2,7 @@ export type UserDataResponseType = {
   _id: string;
   userName: string;
   email: string;
-  admin: boolean;
+  isAdmin: boolean;
 };
 
 export type UserResponseType = {
@@ -12,5 +12,5 @@ export type UserResponseType = {
 
 export type AllUsersResponseType = {
   message: string;
-  users: Array<UserDataResponseType>;
+  users: UserDataResponseType[];
 };

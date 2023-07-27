@@ -6,7 +6,7 @@ import style from 'components/MainContent/Profiles/Profiles.module.scss';
 
 const Profiles: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
-  const admin = useSelector((state: StateType) => state.user.admin);
+  const isAdmin = useSelector((state: StateType) => state.user.isAdmin);
   const email = useSelector((state: StateType) => state.user.email);
   const id = useSelector((state: StateType) => state.user.id);
   const userName = useSelector((state: StateType) => state.user.userName);
@@ -15,10 +15,10 @@ const Profiles: React.FC = () => {
     <div className={style.profilesContainer}>
       <h1>Profiles page</h1>
       <div>
-        <p>{admin}</p>
-        <p>{email}</p>
-        <p>{id}</p>
-        <p>{userName}</p>
+        <p>isAdmin: {`${isAdmin}`}</p>
+        <p>email: {email}</p>
+        <p>id: {id}</p>
+        <p>userName: {userName}</p>
       </div>
     </div>
   ) : (

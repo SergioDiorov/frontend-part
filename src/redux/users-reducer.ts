@@ -7,14 +7,14 @@ export type InitialState = {
   id: string | null;
   userName: string | null;
   email: string | null;
-  admin: boolean | null;
+  isAdmin: boolean | null;
 };
 
 const initialState: InitialState = {
   id: null,
   userName: null,
   email: null,
-  admin: null,
+  isAdmin: null,
 };
 
 export const getUserByIdTh = createAsyncThunk(
@@ -36,7 +36,7 @@ const userSlice = createSlice({
         state.id = action.payload._id;
         state.userName = action.payload.userName;
         state.email = action.payload.email;
-        state.admin = action.payload.admin;
+        state.isAdmin = action.payload.isAdmin;
       }
     );
   },
