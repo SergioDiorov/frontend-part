@@ -12,7 +12,7 @@ const Profiles: React.FC = () => {
   const userName = useSelector((state: StateType) => state.user.userName);
 
   return userId ? (
-    <div className={style.sidebarContainer}>
+    <div className={style.profilesContainer}>
       <h1>Profiles page</h1>
       <div>
         <p>{admin}</p>

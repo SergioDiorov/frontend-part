@@ -8,7 +8,7 @@ const Users: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
 
   return userId ? (
-    <div className={style.sidebarContainer}>
+    <div className={style.usersContainer}>
       <h1>Users page</h1>
     </div>
   ) : (
