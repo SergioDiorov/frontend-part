@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Borel&display=swap");
+@import "assets/styles/color-variables.scss";
 
 .preloaderContainer {
   position: absolute;
-  background-color: #f2ede7;
+  background-color: $color-main-background;
   top: 0;
   right: 0;
   bottom: 0;
@@ -29,7 +30,7 @@
     .thirdDot {
       width: 20px;
       height: 20px;
-      background-color: #12130f;
+      background-color: $color-dark-background;
       border-radius: 50%;
       margin: 5px;
     }

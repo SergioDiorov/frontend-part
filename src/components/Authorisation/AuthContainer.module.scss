@@ -1,3 +1,5 @@
+@import "assets/styles/color-variables.scss";
+
 .authContainer {
   position: absolute;
   background: url("../../img/background-images/authBG.png");
@@ -9,10 +11,10 @@
   min-height: 100vh;
   padding: 100px 20px;
   display: flex;
-  color: #f2ede7;
+  color: $color-text-main;
 
   .formContainer {
-    background-color: rgba(18, 19, 15, 0.92);
+    background-color: $color-form-background;
     margin: auto;
     max-width: 580px;
     width: 100%;
@@ -25,7 +27,7 @@
     flex-direction: column;
     position: relative;
     .title {
-      color: #f2ede7;
+      color: $color-text-main;
       font-size: 45px;
       font-weight: 700;
       margin: 0 0 32px 0;
@@ -36,15 +38,15 @@
       height: 70px;
       flex-shrink: 0;
       border-radius: 20px;
-      background: #f2ede7;
+      background: $color-main-background;
       border-radius: 20px;
       margin: 15px 0;
-      color: #331e10;
+      color: $color-text-input;
       font-size: 21px;
       padding: 20px;
       z-index: 2;
       &::placeholder {
-        color: #341e11;
+        color: $color-text-input-placeholder;
       }
     }
     .checkboxContiner {
@@ -63,7 +65,7 @@
       }
       .checkboxSpan {
         margin: 0 0 0 24px;
-        color: #f2ede7;
+        color: $color-text-main;
         font-size: 21px;
       }
     }
@@ -72,10 +74,10 @@
       height: 70px;
       flex-shrink: 0;
       border-radius: 20px;
-      background: #af253c;
+      background: $color-text-red;
       border-radius: 20px;
       margin: 54px 0 47px 0;
-      color: #fff;
+      color: $color-text-white;
       font-size: 21px;
       font-weight: 700;
       transition: 0.2s;
@@ -88,7 +90,7 @@
     }
     .fieldError {
       color: #d9d9d9;
-      background-color: #af253c;
+      background-color: $color-text-red;
       font-size: 13px;
       position: absolute;
       bottom: -8px;
@@ -107,10 +109,10 @@
       font-size: 23px;
     }
     .authLink {
-      color: #f2ede7;
+      color: $color-text-main;
       font-size: 21px;
       a {
-        color: #af253c;
+        color: $color-text-red;
         font-weight: 700;
         margin: 0 0 0 17px;
         transition: 0.2s;

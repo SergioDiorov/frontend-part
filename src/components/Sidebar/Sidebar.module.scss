@@ -1,7 +1,9 @@
+@import "assets/styles/color-variables.scss";
+
 .sidebarContainer {
-  background: #12130f;
-  box-shadow: 9px 4px 26px 0px rgba(0, 0, 0, 0.25);
-  color: #f2ede7;
+  background: $color-dark-background;
+  box-shadow: 9px 4px 26px 0px $color-sidebar-shadow;
+  color: $color-sidebar-text;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -14,10 +16,10 @@
       height: 100px;
       border-radius: 50%;
       object-fit: cover;
-      background-color: #f2ede7;
+      background-color: $color-sidebar-text;
     }
     .userRole {
-      color: #f2ede7;
+      color: $color-sidebar-text;
       font-size: 21px;
       line-height: normal;
       margin: 10px 0 85px 0;
@@ -27,11 +29,11 @@
       display: flex;
       align-items: center;
       padding: 0 0 0 27px;
-      color: #fff;
+      color: $color-text-white;
       height: 71px;
       transition: 0.2s ease;
       &:hover {
-        background-color: rgb(197, 54, 78);
+        background-color: $color-nav-link-hover;
       }
     }
 
@@ -41,8 +43,8 @@
       padding: 0 0 0 27px;
       width: 100%;
       height: 71px;
-      background-color: #af253c;
-      color: #fff;
+      background-color: $color-text-red;
+      color: $color-text-white;
     }
 
     .activeNavLink > .icon,
@@ -52,13 +54,13 @@
   }
   .logOutButton {
     text-align: left;
-    color: #fff;
+    color: $color-text-white;
     background: none;
     font-size: 21px;
     padding: 0 27px 0 27px;
     transition: 0.2s ease;
     &:hover {
-      color: #c7c7c7;
+      color: $color-logout-button-hover;
     }
     &:active {
       transform: scale(0.99);
