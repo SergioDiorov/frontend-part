@@ -14,12 +14,10 @@ const Profiles: React.FC = () => {
   return userId ? (
     <div className={style.profilesContainer}>
       <h1>Profiles page</h1>
-      <div>
-        <p>isAdmin: {`${isAdmin}`}</p>
-        <p>email: {email}</p>
-        <p>id: {id}</p>
-        <p>userName: {userName}</p>
-      </div>
+      <p>isAdmin: {`${isAdmin}`}</p>
+      <p>email: {email}</p>
+      <p>id: {id}</p>
+      <p>userName: {userName}</p>
     </div>
   ) : (
     <Navigate to='/signin' replace={true} />
