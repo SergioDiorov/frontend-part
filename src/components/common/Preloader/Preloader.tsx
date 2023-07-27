@@ -5,9 +5,9 @@ const Preloader: React.FC = () => {
     <div className={style.preloaderContainer}>
       <div className={style.textContainer}>
         <h1>Loading</h1>
-        <div className={style.dot1}></div>
-        <div className={style.dot2}></div>
-        <div className={style.dot3}></div>
+        <div className={style.firstDot}></div>
+        <div className={style.secondDot}></div>
+        <div className={style.thirdDot}></div>
       </div>
     </div>
   );

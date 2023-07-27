@@ -24,23 +24,23 @@
       color: #12130f;
       margin: 30px 10px 10px 0;
     }
-    .dot1,
-    .dot2,
-    .dot3 {
+    .firstDot,
+    .secondDot,
+    .thirdDot {
       width: 20px;
       height: 20px;
       background-color: #12130f;
       border-radius: 50%;
       margin: 5px;
     }
-    .dot1 {
-      animation: dot111 2s ease-in 0s infinite normal forwards;
+    .firstDot {
+      animation: firstDot 2s ease-in 0s infinite normal forwards;
     }
-    .dot2 {
-      animation: dot222 2s ease-in 0s infinite normal forwards;
+    .secondDot {
+      animation: secondDot 2s ease-in 0s infinite normal forwards;
     }
-    .dot3 {
-      animation: dot333 2s ease-in 0s infinite normal forwards;
+    .thirdDot {
+      animation: thirdDot 2s ease-in 0s infinite normal forwards;
     }
   }
 }
@@ -62,7 +62,7 @@
   }
 }
 
-@keyframes dot111 {
+@keyframes firstDot {
   0% {
     transform: scale(0);
     opacity: 0;
@@ -93,7 +93,7 @@
   }
 }
 
-@keyframes dot222 {
+@keyframes secondDot {
   0% {
     transform: scale(0);
     opacity: 0;
@@ -129,7 +129,7 @@
   }
 }
 
-@keyframes dot333 {
+@keyframes thirdDot {
   0% {
     transform: scale(0);
     opacity: 0;
