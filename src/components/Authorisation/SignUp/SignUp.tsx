@@ -36,7 +36,7 @@ const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
           userName: '',
           email: '',
           password: '',
-          admin: false,
+          isAdmin: false,
         }}
         validationSchema={SignupSchema}
         onSubmit={(values, { resetForm }) => {

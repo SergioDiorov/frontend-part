@@ -2,7 +2,7 @@ export type UserSignUpType = {
   userName: string;
   email: string;
   password: string;
-  admin?: boolean;
+  isAdmin?: boolean;
 };
 
 export type UserSignInType = {

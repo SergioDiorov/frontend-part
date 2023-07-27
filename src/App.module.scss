@@ -1,3 +1,25 @@
-.appWrapper {
-  color: black;
+@import "assets/styles/color-variables.scss";
+
+.appContaier {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100vh;
+  animation: entrance 0.3s ease-in 0s 1 normal forwards;
+
+  .mainContentContainer {
+    background-color: $color-main-background;
+  }
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
