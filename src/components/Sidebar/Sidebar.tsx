@@ -11,7 +11,7 @@ import { ReactComponent as Dashboard } from 'img/icons/dashboard.svg';
 
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const isAdmin = useSelector((state: StateType) => state.user.isAdmin);
+  const isAdmin = useSelector((state: StateType) => state.signedUser.isAdmin);
 
   return (
     <div className={style.sidebarContainer}>

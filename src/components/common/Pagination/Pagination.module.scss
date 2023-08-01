@@ -1,0 +1,27 @@
+@import "../../../assets/styles/color-variables.scss";
+
+.paginationContainer {
+  background-color: $color-dark-transparent-background;
+  padding: 10px 16px;
+  width: 148px;
+  height: 48px;
+  margin: 25px auto 0 auto;
+  color: $color-text-white;
+  border-radius: 15px;
+  font-size: 21px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    background: none;
+    transition: 0.2s ease-out;
+    &:hover {
+      transform: scale(1.07);
+    }
+  }
+
+  .paginationDots {
+    margin: 0 2px;
+  }
+}

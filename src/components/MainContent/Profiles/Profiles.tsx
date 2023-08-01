@@ -6,10 +6,10 @@ import style from 'components/MainContent/Profiles/Profiles.module.scss';
 
 const Profiles: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
-  const isAdmin = useSelector((state: StateType) => state.user.isAdmin);
-  const email = useSelector((state: StateType) => state.user.email);
-  const id = useSelector((state: StateType) => state.user.id);
-  const userName = useSelector((state: StateType) => state.user.userName);
+  const isAdmin = useSelector((state: StateType) => state.signedUser.isAdmin);
+  const email = useSelector((state: StateType) => state.signedUser.email);
+  const id = useSelector((state: StateType) => state.signedUser.id);
+  const userName = useSelector((state: StateType) => state.signedUser.userName);
 
   return userId ? (
     <div className={style.profilesContainer}>

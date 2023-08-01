@@ -12,7 +12,8 @@ import Users from 'components/MainContent/Users/Users';
 import Dashboard from 'components/MainContent/Dashboard/Dashboard';
 import Preloader from 'components/common/Preloader/Preloader';
 import { checkUserAuthTh } from 'redux/auth-reducer';
-import { getUserByIdTh } from 'redux/users-reducer';
+import { getUserByIdTh } from 'redux/signed-user-reducer';
+import CurrentUser from 'components/MainContent/CurrentUser/CurrentUser';
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -48,6 +49,7 @@ const App: React.FC = () => {
           <Route path='/signup' element={<SignUpContainer />} />
           <Route path='/profiles' element={<Profiles />} />
           <Route path='/users' element={<Users />} />
+          <Route path='/users/:id' element={<CurrentUser />} />
           <Route path='/dashboard' element={<Dashboard />} />
         </Routes>
       </div>
