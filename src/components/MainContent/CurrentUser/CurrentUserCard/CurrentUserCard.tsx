@@ -1,13 +1,8 @@
 import style from 'components/MainContent/CurrentUser/CurrentUserCard/CurrentUserCard.module.scss';
 import userDafaultImage from 'img/assets/avatarProfileUser.png';
+import { UserType } from 'types/types';
 
-type CurrentUserCardPropsType = {
-  userName: string;
-  email: string;
-  isAdmin: boolean;
-};
-
-export const CurrentUserCard: React.FC<CurrentUserCardPropsType> = ({
+export const CurrentUserCard: React.FC<UserType> = ({
   userName,
   email,
   isAdmin,

@@ -1,8 +1,11 @@
-export type UserSignUpType = {
+export type UserType = {
   userName: string;
   email: string;
-  password: string;
   isAdmin?: boolean;
+};
+
+export type UserSignUpType = UserType & {
+  password: string;
 };
 
 export type UserSignInType = {
