@@ -1,6 +1,6 @@
 import style from 'components/common/Preloader/Preloader.module.scss';
 
-const Preloader: React.FC = () => {
+export const Preloader: React.FC = () => {
   return (
     <div className={style.preloaderContainer}>
       <div className={style.textContainer}>
@@ -12,5 +12,3 @@ const Preloader: React.FC = () => {
     </div>
   );
 };
-
-export default Preloader;

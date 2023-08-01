@@ -4,7 +4,7 @@ import { StateType } from 'redux/store';
 
 import style from 'components/MainContent/Dashboard/Dashboard.module.scss';
 
-const Dashboard: React.FC = () => {
+export const Dashboard: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
 
   return userId ? (
@@ -15,5 +15,3 @@ const Dashboard: React.FC = () => {
     <Navigate to='/signin' replace={true} />
   );
 };
-
-export default Dashboard;

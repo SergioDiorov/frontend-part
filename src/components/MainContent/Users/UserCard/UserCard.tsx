@@ -4,7 +4,7 @@ import userDafaultImage from 'img/assets/avatarProfileUser.png';
 
 type CardPropsType = Omit<UserDataResponseType, '_id'> & { id: string };
 
-const UserCard: React.FC<CardPropsType> = ({ email, userName }) => {
+export const UserCard: React.FC<CardPropsType> = ({ email, userName }) => {
   return (
     <div className={style.cardContainer}>
       <img src={userDafaultImage} alt='User imge' />
@@ -14,5 +14,3 @@ const UserCard: React.FC<CardPropsType> = ({ email, userName }) => {
     </div>
   );
 };
-
-export default UserCard;

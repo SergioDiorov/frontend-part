@@ -4,7 +4,7 @@ import { StateType } from 'redux/store';
 
 import style from 'components/MainContent/Profiles/Profiles.module.scss';
 
-const Profiles: React.FC = () => {
+export const Profiles: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
   const isAdmin = useSelector((state: StateType) => state.signedUser.isAdmin);
   const email = useSelector((state: StateType) => state.signedUser.email);
@@ -23,5 +23,3 @@ const Profiles: React.FC = () => {
     <Navigate to='/signin' replace={true} />
   );
 };
-
-export default Profiles;

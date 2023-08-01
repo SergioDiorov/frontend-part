@@ -7,7 +7,7 @@ type CurrentUserCardPropsType = {
   isAdmin: boolean;
 };
 
-const CurrentUserCard: React.FC<CurrentUserCardPropsType> = ({
+export const CurrentUserCard: React.FC<CurrentUserCardPropsType> = ({
   userName,
   email,
   isAdmin,
@@ -23,5 +23,3 @@ const CurrentUserCard: React.FC<CurrentUserCardPropsType> = ({
     </div>
   );
 };
-
-export default CurrentUserCard;

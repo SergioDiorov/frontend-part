@@ -28,7 +28,7 @@ const SignupSchema = Yup.object().shape({
     .required('Password is required'),
 });
 
-const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
+export const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
   return (
     <div className={style.authContainer}>
       <Formik
@@ -91,5 +91,3 @@ const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
     </div>
   );
 };
-
-export default SignUp;

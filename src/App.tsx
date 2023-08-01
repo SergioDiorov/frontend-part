@@ -4,16 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, StateType } from 'redux/store';
 
 import style from 'App.module.scss';
-import SignUpContainer from 'components/Authorisation/SignUp/SignUpContainer';
-import SignInContainer from 'components/Authorisation/SignIn/SignInContainer';
-import Sidebar from 'components/Sidebar/Sidebar';
-import Profiles from './components/MainContent/Profiles/Profiles';
-import Users from 'components/MainContent/Users/Users';
-import Dashboard from 'components/MainContent/Dashboard/Dashboard';
-import Preloader from 'components/common/Preloader/Preloader';
+import { SignUpContainer } from 'components/Authorisation/SignUp/SignUpContainer';
+import { SignInContainer } from 'components/Authorisation/SignIn/SignInContainer';
+import { Sidebar } from 'components/Sidebar/Sidebar';
+import { Profiles } from './components/MainContent/Profiles/Profiles';
+import { Users } from 'components/MainContent/Users/Users';
+import { Dashboard } from 'components/MainContent/Dashboard/Dashboard';
+import { Preloader } from 'components/common/Preloader/Preloader';
+import { CurrentUser } from 'components/MainContent/CurrentUser/CurrentUser';
 import { checkUserAuthTh } from 'redux/auth-reducer';
 import { getUserByIdTh } from 'redux/signed-user-reducer';
-import CurrentUser from 'components/MainContent/CurrentUser/CurrentUser';
 
 const App: React.FC = () => {
   const location = useLocation();

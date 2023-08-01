@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 
 import { getAllUsersTh } from 'redux/users-page-reducer';
 import style from 'components/MainContent/Users/Users.module.scss';
-import UserCard from 'components/MainContent/Users/UserCard/UserCard';
-import Pagination from 'components/common/Pagination/Pagination';
+import { UserCard } from 'components/MainContent/Users/UserCard/UserCard';
+import { Pagination } from 'components/common/Pagination/Pagination';
 import usePagination from 'assets/pagination/usePagination';
 
-const Users: React.FC = () => {
+export const Users: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
   const allUsers = useSelector((state: StateType) => state.users.usersData);
 
@@ -59,5 +59,3 @@ const Users: React.FC = () => {
     <Navigate to='/signin' replace={true} />
   );
 };
-
-export default Users;

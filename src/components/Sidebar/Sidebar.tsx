@@ -9,7 +9,7 @@ import { ReactComponent as Profiles } from 'img/icons/profiles.svg';
 import { ReactComponent as Users } from 'img/icons/users.svg';
 import { ReactComponent as Dashboard } from 'img/icons/dashboard.svg';
 
-const Sidebar: React.FC = () => {
+export const Sidebar: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isAdmin = useSelector((state: StateType) => state.signedUser.isAdmin);
 
@@ -75,5 +75,3 @@ const Sidebar: React.FC = () => {
     </div>
   );
 };
-
-export default Sidebar;

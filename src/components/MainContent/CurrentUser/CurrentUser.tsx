@@ -1,9 +1,9 @@
 import { useLocation } from 'react-router';
 
 import style from 'components/MainContent/CurrentUser/CurrentUser.module.scss';
-import CurrentUserCard from './CurrentUserCard/CurrentUserCard';
+import { CurrentUserCard } from './CurrentUserCard/CurrentUserCard';
 
-const CurrentUser: React.FC = () => {
+export const CurrentUser: React.FC = () => {
   const { state } = useLocation();
 
   return (
@@ -19,5 +19,3 @@ const CurrentUser: React.FC = () => {
     </div>
   );
 };
-
-export default CurrentUser;
