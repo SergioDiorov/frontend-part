@@ -1,0 +1,48 @@
+@import "assets/styles/color-variables.scss";
+
+.cardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 234px;
+  height: fit-content;
+  background-color: $color-dark-transparent-background;
+  border-radius: 15px;
+  color: $color-text-main;
+  padding: 15px 15px 6px 15px;
+  box-shadow: 2px 4px 13px 1px $color-sidebar-shadow;
+  transition: 0.2s ease;
+  cursor: pointer;
+  transform: translateY(0px);
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  img {
+    height: 50px;
+    width: 50px;
+    margin: 0 0 17px 0;
+  }
+
+  p {
+    width: 100%;
+    margin: 0 0 17px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 22px;
+  }
+
+  .userName {
+    font-size: 18px;
+  }
+  .email {
+    font-size: 16px;
+  }
+  .profiles {
+    color: $color-text-red;
+    font-size: 18px;
+  }
+}

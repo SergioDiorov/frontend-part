@@ -4,9 +4,9 @@ import { Navigate } from 'react-router';
 import { AppDispatch, StateType } from 'redux/store';
 import { signInUserTh } from 'redux/auth-reducer';
 import { UserSignInType } from 'types/types';
-import SignIn from 'components/Authorisation/SignIn/SignIn';
+import { SignIn } from 'components/Authorisation/SignIn/SignIn';
 
-const SignUpContainer: React.FC = () => {
+export const SignInContainer: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
   const requestErrors = useSelector(
     (state: StateType) => state.auth.requestErrors
@@ -23,5 +23,3 @@ const SignUpContainer: React.FC = () => {
     <SignIn signInUser={handleSignInUser} requestErrors={requestErrors} />
   );
 };
-
-export default SignUpContainer;

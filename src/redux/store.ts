@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import authReducer from 'redux/auth-reducer';
-import usersReducer from 'redux/users-reducer';
+import signedUserReducer from 'redux/signed-user-reducer';
+import usersPageReducer from 'redux/users-page-reducer';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    user: usersReducer,
+    signedUser: signedUserReducer,
+    users: usersPageReducer,
   },
 });
 
