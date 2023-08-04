@@ -1,6 +1,7 @@
 @import "assets/styles/color-variables.scss";
 
 .currentUserContainer {
+  position: relative;
   height: 100%;
   text-align: center;
   background: url("../../../img/background-images/usersBG.png");
@@ -14,8 +15,8 @@
   align-items: center;
 
   .profilesContainer {
-    width: 100%;
     animation: entrance 0.3s ease-in 0s 1 normal forwards;
+    width: 100%;
 
     .title {
       text-align: left;
@@ -30,7 +31,6 @@
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }

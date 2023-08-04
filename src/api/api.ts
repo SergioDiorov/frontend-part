@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 import { AllUsersResponseType, UserResponseType } from 'types/apiTypes';
-import { UserSignUpType, UserSignInType } from 'types/types';
+import { UserSignUpType, UserSignInType, UserType } from 'types/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -77,8 +77,8 @@ export const usersApi = {
   getUserById(userId: string): Promise<AxiosResponse<UserResponseType>> {
     return instance.get<UserResponseType>(`users/${userId}`);
   },
-  changeUserData(userId: string): Promise<AxiosResponse<UserResponseType>> {
-    return instance.patch<UserResponseType>(`users/${userId}`);
+  changeUserData(userId: string, userCredentials: Partial<UserType>): Promise<AxiosResponse<UserResponseType>> {
+    return instance.patch<UserResponseType>(`users/${userId}`, userCredentials);
   },
   deleteUser(userId: string) {
     return instance.delete<UserResponseType>(`users/${userId}`);
