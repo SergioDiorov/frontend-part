@@ -1,8 +1,8 @@
 import { useDispatch } from 'react-redux';
 
-import style from 'components/MainContent/CurrentUser/DeleteUserModal/DeleteUserModal.module.scss';
 import { AppDispatch } from 'redux/store';
 import { deleteUser } from 'redux/current-user-reducer';
+import style from 'components/MainContent/CurrentUser/DeleteUserModal/DeleteUserModal.module.scss';
 
 type DeleteUserModalPropsType = {
   setUserDeletedMode: (param: boolean) => void;
@@ -33,10 +33,7 @@ export const DeleteUserModal: React.FC<DeleteUserModalPropsType> = ({
         </h2>
 
         <div className={style.deleteButtonContainer}>
-          <button
-            className={style.confirmButtonContainer}
-            onClick={() => onDelete()}
-          >
+          <button className={style.confirmButtonContainer} onClick={onDelete}>
             Yes
           </button>
           <button

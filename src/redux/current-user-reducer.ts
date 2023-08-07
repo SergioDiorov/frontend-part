@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-
 import { usersApi } from 'api/api';
 import { UserDataResponseType } from 'types/apiTypes';
 import { UserType } from 'types/types';

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { AppDispatch, StateType } from 'redux/store';
+import { getCurrentUserById } from 'redux/current-user-reducer';
 import style from 'components/MainContent/CurrentUser/CurrentUser.module.scss';
 import { CurrentUserCard } from 'components/MainContent/CurrentUser/CurrentUserCard/CurrentUserCard';
 import { EditUserModal } from 'components/MainContent/CurrentUser/EditUserModal/EditUserModal';
 import { DeleteUserModal } from 'components/MainContent/CurrentUser/DeleteUserModal/DeleteUserModal';
-import { AppDispatch, StateType } from 'redux/store';
-import { getCurrentUserById } from 'redux/current-user-reducer';
 
 export const CurrentUser: React.FC = () => {
   const { state } = useLocation();

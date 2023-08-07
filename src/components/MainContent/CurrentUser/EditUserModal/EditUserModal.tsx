@@ -2,17 +2,17 @@ import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
-import style from 'components/MainContent/CurrentUser/EditUserModal/EditUserModal.module.scss';
-import avatarProfileUser from 'img/assets/avatarProfileUser.png';
 import { changeUserData } from 'redux/current-user-reducer';
 import { AppDispatch } from 'redux/store';
 import { UserType } from 'types/types';
+import style from 'components/MainContent/CurrentUser/EditUserModal/EditUserModal.module.scss';
+import avatarProfileUser from 'img/assets/avatarProfileUser.png';
 
 type EditUserModalPropsType = {
   setEditUser: (param: boolean) => void;
-  userName: string | undefined;
-  email: string | undefined;
-  isAdmin: boolean | undefined;
+  userName?: string;
+  email?: string;
+  isAdmin?: boolean;
   userId: string;
 };
 
@@ -24,7 +24,7 @@ const UserDataSchema = Yup.object().shape({
     )
     .max(30, 'Too Long!')
     .required('User name is required'),
-  userName: Yup.string().max(30, 'Too Long!').required('Email is required'),
+  userName: Yup.string().max(30, 'Too Long!').required('User name is required'),
 });
 
 export const EditUserModal: React.FC<EditUserModalPropsType> = ({
@@ -65,7 +65,7 @@ export const EditUserModal: React.FC<EditUserModalPropsType> = ({
             userCredentials.userName = values.userName;
           }
 
-          if (Object.keys(userCredentials).length !== 0) {
+          if (!!Object.keys(userCredentials).length) {
             dispatch(changeUserData({ userId, userCredentials }));
           }
 
