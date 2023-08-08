@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
-import { usersApi } from 'api/api';
+
+import { profilesApi, usersApi } from 'api/api';
 import { UserDataResponseType } from 'types/apiTypes';
+import { ProfileDataResponseType } from 'types/profileTypes';
 import { UserType } from 'types/types';
 
 export type InitialState = {
   userData: null | UserDataResponseType;
-  userProfiles: null;
+  userProfiles: null | ProfileDataResponseType[];
   requestErrors: string | null;
 };
 
@@ -30,6 +32,12 @@ export const deleteUser = createAsyncThunk('currentUser/deleteUser', async (user
   return response.data.user;
 });
 
+export const getCurrentUserProfiles = createAsyncThunk('currentUser/getCurrentUserPrifiles', async (userId: string) => {
+  const response = await profilesApi.getProfiles(userId);
+  return response.data.profiles;
+});
+
+
 const currentUser = createSlice({
   name: 'currentUser',
   initialState,
@@ -53,6 +61,13 @@ const currentUser = createSlice({
       deleteUser.fulfilled,
       (state) => {
         state.userData = null;
+      }
+    );
+
+    builder.addCase(
+      getCurrentUserProfiles.fulfilled,
+      (state, action: PayloadAction<ProfileDataResponseType[]>) => {
+        state.userProfiles = action.payload;
       }
     );
   },

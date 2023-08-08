@@ -5,7 +5,8 @@ import authReducer, {
   signUpUserTh,
   InitialState,
 } from 'redux/auth-reducer';
-import { AuthResponseType, userAuthApi } from 'api/api';
+import { userAuthApi } from 'api/api';
+import { AuthResponseType } from 'types/apiTypes';
 
 jest.mock('api/api');
 const userAuthApiMock = userAuthApi as jest.Mocked<typeof userAuthApi>;

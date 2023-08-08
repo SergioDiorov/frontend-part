@@ -1,23 +1,31 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
-import { StateType } from 'redux/store';
+import { useEffect } from 'react';
 
 import style from 'components/MainContent/Profiles/Profiles.module.scss';
+import { ProfileCard } from 'components/MainContent/Profiles/ProfileCard/ProfileCard';
+import { CreateProfileButton } from 'components/MainContent/Profiles/CreateProfileButton/CreateProfileButton';
+import { AppDispatch, StateType } from 'redux/store';
+import { getUserPrifile } from 'redux/profile-reducer';
 
 export const Profiles: React.FC = () => {
   const userId = useSelector((state: StateType) => state.auth.userId);
-  const isAdmin = useSelector((state: StateType) => state.signedUser.isAdmin);
-  const email = useSelector((state: StateType) => state.signedUser.email);
-  const id = useSelector((state: StateType) => state.signedUser.id);
-  const userName = useSelector((state: StateType) => state.signedUser.userName);
+  const profiles = useSelector((state: StateType) => state.profile.profiles);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    userId && dispatch(getUserPrifile(userId));
+  }, []);
 
   return userId ? (
     <div className={style.profilesContainer}>
-      <h1>Profiles page</h1>
-      <p>isAdmin: {`${isAdmin}`}</p>
-      <p>email: {email}</p>
-      <p>id: {id}</p>
-      <p>userName: {userName}</p>
+      <h1 className={style.usersTitle}>Profiles</h1>
+      <div className={style.cardContainer}>
+        {profiles?.map((profile) => {
+          return <ProfileCard key={profile._id} profile={profile} />;
+        })}
+        <CreateProfileButton />
+      </div>
     </div>
   ) : (
     <Navigate to='/signin' replace={true} />

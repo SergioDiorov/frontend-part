@@ -1,0 +1,35 @@
+@import "assets/styles/color-variables.scss";
+
+.profilesContainer {
+  animation: entrance 0.3s ease-in 0s 1 normal forwards;
+  width: 100%;
+
+  .title {
+    text-align: left;
+    font-size: 32px;
+    margin: 0 0 24px 0;
+    font-weight: 700;
+  }
+  .profileCardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 234px);
+    justify-content: flex-start;
+    flex-flow: wrap;
+    gap: 33px;
+  }
+}
+
+.noProfilesTitle {
+  font-size: 32px;
+  margin: 0 0 24px 0;
+  font-weight: 700;
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
