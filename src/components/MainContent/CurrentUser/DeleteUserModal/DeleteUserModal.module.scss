@@ -1,0 +1,89 @@
+@import "assets/styles/color-variables.scss";
+
+.deleteUserContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
+  background-color: $color-dark-transparent-background;
+  z-index: 9;
+  animation: entrance 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  cursor: pointer;
+
+  .modalContainer {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 656px;
+    width: 100%;
+    margin: 30px 0;
+    padding: 85px 87px 70px 87px;
+    border-radius: 25px;
+    background-color: $color-main-background;
+    color: $color-dark-background;
+    animation: showModal 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    cursor: default;
+
+    .deleteUserTitle {
+      margin: 0 0 60px 0;
+      font-size: 24px;
+    }
+
+    .deleteButtonContainer {
+      .confirmButtonContainer,
+      .declineButtonContainer {
+        width: 217px;
+        height: 57px;
+        border-radius: 15px;
+        color: $color-text-button;
+        font-size: 21px;
+        transition: 0.2s ease;
+
+        &:hover {
+          filter: brightness(1.2);
+        }
+
+        &:active {
+          transform: scale(0.97);
+        }
+      }
+
+      .confirmButtonContainer {
+        margin: 0 20px 0 0;
+        background-color: $color-background-accept-button;
+      }
+
+      .declineButtonContainer {
+        margin: 0 0 0 20px;
+        background-color: $color-background-decline-button;
+      }
+    }
+  }
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

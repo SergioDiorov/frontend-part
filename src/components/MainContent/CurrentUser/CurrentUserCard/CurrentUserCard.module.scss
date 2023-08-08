@@ -1,12 +1,12 @@
 @import "assets/styles/color-variables.scss";
 
 .userCardContainer {
-  padding: 26px;
-  background-color: $color-dark-background;
-  border-radius: 25px;
   max-width: 624px;
   width: 100%;
+  padding: 26px;
   margin: 0 0 65px 0;
+  border-radius: 25px;
+  background-color: $color-dark-background;
   animation: entrance 0.3s ease-in 0s 1 normal forwards;
 
   img {
@@ -58,5 +58,15 @@
 
   .deleteButton {
     background-color: $color-background-decline-button;
+  }
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }

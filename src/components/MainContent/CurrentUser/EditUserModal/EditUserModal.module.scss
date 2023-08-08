@@ -1,0 +1,186 @@
+@import "assets/styles/color-variables.scss";
+
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-dark-transparent-background;
+  padding: 30px;
+  overflow-y: scroll;
+  z-index: 9;
+  animation: entrance 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  cursor: pointer;
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: $color-transparent-background;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color-transparent-background;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $color-background-decline-button;
+    border: $color-dark-background 3px solid;
+  }
+
+  .formContainer {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 656px;
+    width: 100%;
+    margin: 30px 0;
+    padding: 34px 80px 64px 80px;
+    border-radius: 25px;
+    background-color: $color-main-background;
+    color: $color-dark-background;
+    animation: showModal 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    cursor: default;
+
+    span {
+      text-align: left;
+      margin: 0 0 12px 0;
+      font-size: 21px;
+    }
+
+    .formTitle {
+      font-weight: 700;
+      margin: 0 0 24px 0;
+      font-size: 35px;
+    }
+
+    .fieldWrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      max-width: 489px;
+      width: 100%;
+
+      .fileLabel {
+        img {
+          display: block;
+          margin: auto;
+          width: 120px;
+          height: 120px;
+        }
+
+        span {
+          display: block;
+          text-align: center;
+          margin-top: 5px;
+          cursor: pointer;
+        }
+
+        .fileInput {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          opacity: 0;
+          cursor: pointer;
+        }
+      }
+
+      .textInput {
+        position: relative;
+        width: 100%;
+        height: 70px;
+        flex-shrink: 0;
+        border-radius: 20px;
+        background: $color-dark-transparent-background;
+        border-radius: 20px;
+        color: $color-text-main;
+        font-size: 21px;
+        padding: 20px;
+        margin: 0 0 28px 0;
+        z-index: 2;
+      }
+    }
+    .checkboxContiner {
+      margin: 0 auto 0 0;
+
+      .checkboxTitle {
+        display: block;
+      }
+
+      .checkboxSpan {
+        position: relative;
+        top: -5px;
+        cursor: pointer;
+      }
+
+      input {
+        width: 24px;
+        height: 24px;
+        margin: 8px 24px 0 24px;
+        background: $color-checkbox-background;
+        border: none;
+        border-radius: 0px;
+        cursor: pointer;
+      }
+    }
+
+    .formButtonContainer {
+      margin: 76px 0 0 0;
+
+      .submitButton,
+      .closeButton {
+        width: 217px;
+        height: 57px;
+        color: $color-text-button;
+        font-size: 21px;
+        border-radius: 15px;
+        transition: 0.2s ease;
+        &:hover {
+          filter: brightness(1.2);
+        }
+        &:active {
+          transform: scale(0.97);
+        }
+      }
+
+      .submitButton {
+        background-color: $color-background-accept-button;
+        margin: 0 20px 0 0;
+      }
+
+      .closeButton {
+        background-color: $color-background-decline-button;
+        margin: 0 0 0 20px;
+      }
+    }
+  }
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
