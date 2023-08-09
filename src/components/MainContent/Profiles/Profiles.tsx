@@ -14,16 +14,18 @@ export const Profiles: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    userId && dispatch(getUserPrifile(userId));
+    if (userId) {
+      dispatch(getUserPrifile(userId));
+    }
   }, []);
 
   return userId ? (
     <div className={style.profilesContainer}>
       <h1 className={style.usersTitle}>Profiles</h1>
       <div className={style.cardContainer}>
-        {profiles?.map((profile) => {
-          return <ProfileCard key={profile._id} profile={profile} />;
-        })}
+        {profiles?.map((profile) => (
+          <ProfileCard key={profile._id} profile={profile} />
+        ))}
         <CreateProfileButton />
       </div>
     </div>

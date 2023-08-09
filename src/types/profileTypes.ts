@@ -14,15 +14,16 @@ export type ProfileDataResponseType = ProfileType & {
   user: string,
 }
 
-export type ProfileResponseType = {
+export type ApiResult = {
   code: number;
   message: string;
+};
+
+export type ProfileResponseType = ApiResult & {
   profile: ProfileDataResponseType;
 };
 
-export type AllProfilesResponseType = {
-  code: number;
-  message: string;
+export type AllProfilesResponseType = ApiResult & {
   profiles: ProfileDataResponseType[];
 };
 

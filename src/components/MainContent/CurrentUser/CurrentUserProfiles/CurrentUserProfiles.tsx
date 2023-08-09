@@ -18,10 +18,9 @@ export const CurrentUserProfiles: React.FC = () => {
     <div className={style.profilesContainer}>
       <h1 className={style.title}>Profiles</h1>
       <div className={style.profileCardsContainer}>
-        {userProfiles &&
-          userProfiles.map((profile) => {
-            return <ProfileCard key={profile._id} profile={profile} />;
-          })}
+        {userProfiles?.map((profile) => {
+          return <ProfileCard key={profile._id} profile={profile} />;
+        })}
         <CreateProfileButton />
       </div>
     </div>
