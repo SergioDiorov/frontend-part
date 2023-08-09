@@ -14,6 +14,7 @@ export type UserDataResponseType = {
   userName: string;
   email: string;
   isAdmin: boolean;
+  profileCount: number;
 };
 
 export type UserResponseType = {
