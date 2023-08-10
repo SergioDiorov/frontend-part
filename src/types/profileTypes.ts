@@ -4,7 +4,7 @@ export type ProfileType = {
     city: string
   },
   name: string,
-  birthDate: Date,
+  birthDate: string,
   gender: string,
   phone: string,
 }

@@ -5,7 +5,7 @@
   width: 100%;
 
   .title {
-    text-align: left;
+    text-align: center;
     font-size: 32px;
     margin: 0 0 24px 0;
     font-weight: 700;
@@ -13,7 +13,7 @@
   .profileCardsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, 234px);
-    justify-content: flex-start;
+    justify-content: center;
     flex-flow: wrap;
     gap: 33px;
   }

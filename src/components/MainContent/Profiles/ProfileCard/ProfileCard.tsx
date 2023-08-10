@@ -1,18 +1,24 @@
+import { useState } from 'react';
+
 import style from 'components/MainContent/Profiles/ProfileCard/ProfileCard.module.scss';
 import { ProfileDataResponseType } from 'types/profileTypes';
 import avatarProfileUser from 'img/assets/avatarProfileUser.png';
 import avatarProfileUserWM from 'img/assets/avatarProfileUserWM.png';
-import { useState } from 'react';
+import { getFormattedDate } from 'assets/helpers/getFormattedDate';
 
-type ProfilePropType = { profile: ProfileDataResponseType };
+type ProfilePropType = {
+  profile: ProfileDataResponseType;
+  setDeleteProfileId: (profileId: string) => void;
+  setEditProfileData: (profileData: ProfileDataResponseType) => void;
+};
 
-export const ProfileCard: React.FC<ProfilePropType> = ({ profile }) => {
+export const ProfileCard: React.FC<ProfilePropType> = ({
+  profile,
+  setDeleteProfileId,
+  setEditProfileData,
+}) => {
   const [cardButtons, setCardButtons] = useState(false);
-  const birthDate = new Date(profile.birthDate);
-  const day = birthDate.getDate().toString().padStart(2, '0');
-  const month = (birthDate.getMonth() + 1).toString().padStart(2, '0');
-  const year = birthDate.getFullYear();
-  const formattedDate = `${day}.${month}.${year}`;
+  const formattedDate = getFormattedDate(profile.birthDate);
 
   return (
     <div
@@ -22,8 +28,20 @@ export const ProfileCard: React.FC<ProfilePropType> = ({ profile }) => {
     >
       {cardButtons && (
         <div className={style.cardButtons}>
-          <button className={style.editButton}>Edit</button>
-          <button className={style.deleteButton}>Delete</button>
+          <button
+            className={style.editButton}
+            onClick={() => {
+              setEditProfileData(profile);
+            }}
+          >
+            Edit
+          </button>
+          <button
+            className={style.deleteButton}
+            onClick={() => setDeleteProfileId(profile._id)}
+          >
+            Delete
+          </button>
         </div>
       )}
 
@@ -36,6 +54,7 @@ export const ProfileCard: React.FC<ProfilePropType> = ({ profile }) => {
         />
         <p>{profile.name}</p>
       </div>
+
       <div className={style.profileData}>
         <p>
           <span className={style.infoLabel}>gender:</span>
