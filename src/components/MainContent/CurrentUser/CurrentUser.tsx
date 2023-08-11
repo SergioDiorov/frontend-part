@@ -29,10 +29,12 @@ export const CurrentUser: React.FC = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  if (areProfilesChanged) {
-    dispatch(resetProfileAdded());
-    dispatch(getCurrentUserProfiles(state._id));
-  }
+  useEffect(() => {
+    if (areProfilesChanged) {
+      dispatch(resetProfileAdded());
+      dispatch(getCurrentUserProfiles(state._id));
+    }
+  }, [areProfilesChanged]);
 
   useEffect(() => {
     dispatch(getCurrentUserById(state._id));

@@ -25,10 +25,12 @@ export const Profiles: React.FC = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  if (areProfilesChanged && !createProfile && userId) {
-    dispatch(resetProfileAdded());
-    dispatch(getUserPrifile(userId));
-  }
+  useEffect(() => {
+    if (areProfilesChanged && !createProfile && userId) {
+      dispatch(resetProfileAdded());
+      dispatch(getUserPrifile(userId));
+    }
+  }, [areProfilesChanged]);
 
   useEffect(() => {
     if (userId) {
