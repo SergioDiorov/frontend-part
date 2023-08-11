@@ -51,16 +51,14 @@ export const CurrentUserProfiles: React.FC<CurrentUserProfilesProps> = ({
       )}
       <h1 className={style.title}>Profiles</h1>
       <div className={style.profileCardsContainer}>
-        {userProfiles?.map((profile) => {
-          return (
-            <ProfileCard
-              key={profile._id}
-              profile={profile}
-              setDeleteProfileId={setDeleteProfileId}
-              setEditProfileData={setEditProfileData}
-            />
-          );
-        })}
+        {userProfiles?.map((profile) => (
+          <ProfileCard
+            key={profile._id}
+            profile={profile}
+            setDeleteProfileId={setDeleteProfileId}
+            setEditProfileData={setEditProfileData}
+          />
+        ))}
         <CreateProfileButton setCreateProfile={setCreateProfile} />
       </div>
     </div>
