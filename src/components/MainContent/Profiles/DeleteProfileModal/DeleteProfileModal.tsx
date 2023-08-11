@@ -5,24 +5,24 @@ import { AppDispatch } from 'redux/store';
 import { deleteProfile } from 'redux/profile-reducer';
 
 type DeleteProfileModalPropsType = {
-  setDeleteProfileId: (param: null) => void;
+  setShowDeleteModal: (param: boolean) => void;
   deleteProfileId: string;
 };
 export const DeleteProfileModal: React.FC<DeleteProfileModalPropsType> = ({
   deleteProfileId,
-  setDeleteProfileId,
+  setShowDeleteModal,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const onDelete = () => {
-    setDeleteProfileId(null);
+    setShowDeleteModal(false);
     dispatch(deleteProfile(deleteProfileId));
   };
 
   return (
     <div
       className={style.deleteUserContainer}
-      onClick={(e) => e.target === e.currentTarget && setDeleteProfileId(null)}
+      onClick={(e) => e.target === e.currentTarget && setShowDeleteModal(false)}
     >
       <div className={style.modalContainer}>
         <h2 className={style.deleteUserTitle}>
@@ -35,7 +35,7 @@ export const DeleteProfileModal: React.FC<DeleteProfileModalPropsType> = ({
           </button>
           <button
             className={style.declineButton}
-            onClick={() => setDeleteProfileId(null)}
+            onClick={() => setShowDeleteModal(false)}
           >
             No
           </button>

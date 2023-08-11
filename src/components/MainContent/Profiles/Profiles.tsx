@@ -14,8 +14,9 @@ import { CreateProfileButton } from 'components/MainContent/Profiles/CreateProfi
 
 export const Profiles: React.FC = () => {
   const [createProfile, setCreateProfile] = useState(false);
-  const [deleteProfileId, setDeleteProfileId] = useState<null | string>(null);
-  const [editProfileData, setEditProfileData] =
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [profileData, setProfileData] =
     useState<null | ProfileDataResponseType>(null);
 
   const userId = useSelector((state: StateType) => state.auth.userId);
@@ -46,16 +47,16 @@ export const Profiles: React.FC = () => {
           setCreateProfile={setCreateProfile}
         />
       )}
-      {editProfileData && (
+      {showEditModal && profileData && (
         <EditProfileModal
-          profileData={editProfileData}
-          setEditProfileData={setEditProfileData}
+          profileData={profileData}
+          setShowEditModal={setShowEditModal}
         />
       )}
-      {deleteProfileId && (
+      {showDeleteModal && profileData && (
         <DeleteProfileModal
-          deleteProfileId={deleteProfileId}
-          setDeleteProfileId={setDeleteProfileId}
+          deleteProfileId={profileData._id}
+          setShowDeleteModal={setShowDeleteModal}
         />
       )}
       <h1 className={style.usersTitle}>Profiles</h1>
@@ -64,8 +65,9 @@ export const Profiles: React.FC = () => {
           <ProfileCard
             key={profile._id}
             profile={profile}
-            setDeleteProfileId={setDeleteProfileId}
-            setEditProfileData={setEditProfileData}
+            setShowDeleteModal={setShowDeleteModal}
+            setShowEditModal={setShowEditModal}
+            setProfileData={setProfileData}
           />
         ))}
         <CreateProfileButton setCreateProfile={setCreateProfile} />

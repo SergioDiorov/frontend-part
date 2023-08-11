@@ -8,14 +8,16 @@ import { getFormattedDate } from 'assets/helpers/getFormattedDate';
 
 type ProfilePropType = {
   profile: ProfileDataResponseType;
-  setDeleteProfileId: (profileId: string) => void;
-  setEditProfileData: (profileData: ProfileDataResponseType) => void;
+  setShowDeleteModal: (param: boolean) => void;
+  setShowEditModal: (param: boolean) => void;
+  setProfileData: (profileData: ProfileDataResponseType) => void;
 };
 
 export const ProfileCard: React.FC<ProfilePropType> = ({
   profile,
-  setDeleteProfileId,
-  setEditProfileData,
+  setShowDeleteModal,
+  setShowEditModal,
+  setProfileData,
 }) => {
   const [cardButtons, setCardButtons] = useState(false);
   const formattedDate = getFormattedDate(profile.birthDate);
@@ -31,14 +33,18 @@ export const ProfileCard: React.FC<ProfilePropType> = ({
           <button
             className={style.editButton}
             onClick={() => {
-              setEditProfileData(profile);
+              setProfileData(profile);
+              setShowEditModal(true);
             }}
           >
             Edit
           </button>
           <button
             className={style.deleteButton}
-            onClick={() => setDeleteProfileId(profile._id)}
+            onClick={() => {
+              setProfileData(profile);
+              setShowDeleteModal(true);
+            }}
           >
             Delete
           </button>

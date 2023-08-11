@@ -12,12 +12,12 @@ import avatarProfileUserWM from 'img/assets/avatarProfileUserWM.png';
 
 type EditProfileModalPropsType = {
   profileData: ProfileDataResponseType;
-  setEditProfileData: (param: null) => void;
+  setShowEditModal: (param: boolean) => void;
 };
 
 export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
   profileData,
-  setEditProfileData,
+  setShowEditModal,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const formattedBirthDate = new Date(profileData.birthDate)
@@ -44,7 +44,7 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
           const { file, ...userCredentials } = values;
           const profileId = profileData._id;
           dispatch(changeProfileData({ profileId, userCredentials }));
-          setEditProfileData(null);
+          setShowEditModal(false);
           resetForm();
         }}
       >
@@ -52,7 +52,7 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
           <div
             className={style.formWrapper}
             onClick={(e) =>
-              e.target === e.currentTarget && setEditProfileData(null)
+              e.target === e.currentTarget && setShowEditModal(false)
             }
           >
             <Form className={style.formContainer}>
@@ -177,7 +177,7 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
                   Save
                 </button>
                 <button
-                  onClick={() => setEditProfileData(null)}
+                  onClick={() => setShowEditModal(false)}
                   className={style.closeButton}
                 >
                   Close
