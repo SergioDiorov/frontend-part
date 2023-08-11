@@ -1,11 +1,11 @@
 import { Field, Form, Formik } from 'formik';
-import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
 import style from 'components/MainContent/Profiles/EditProfileModal/EditProfileModal.module.scss';
 import { AppDispatch } from 'redux/store';
 import { changeProfileData } from 'redux/profile-reducer';
 import { ProfileDataResponseType } from 'types/profileTypes';
+import { UserDataSchemaValidation } from 'assets/helpers/userDataValidationSchema';
 import calendarIcon from 'img/icons/calendarIcon.svg';
 import avatarProfileUser from 'img/assets/avatarProfileUser.png';
 import avatarProfileUserWM from 'img/assets/avatarProfileUserWM.png';
@@ -14,31 +14,6 @@ type EditProfileModalPropsType = {
   profileData: ProfileDataResponseType;
   setEditProfileData: (param: null) => void;
 };
-
-const UserDataSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Too short!')
-    .max(30, 'Too Long!')
-    .required('Name is required'),
-  location: Yup.object().shape({
-    country: Yup.string()
-      .min(2, 'Too short!')
-      .max(30, 'Too Long!')
-      .required('Country is required'),
-    city: Yup.string()
-      .min(2, 'Too short!')
-      .max(30, 'Too Long!')
-      .required('City is required'),
-  }),
-  phone: Yup.string()
-    .matches(/^\d{10}$/, 'Phone format should be 050 000 00 00')
-    .required('Phone is required'),
-  gender: Yup.string().required('Choose gender'),
-  birthDate: Yup.date()
-    .min(new Date('1950-01-01'), 'Date should be more than 1950')
-    .max(new Date('2022-12-31'), 'Date should be less than 2022')
-    .required('Birth date is required'),
-});
 
 export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
   profileData,
@@ -64,7 +39,7 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
           },
           phone: profileData.phone,
         }}
-        validationSchema={UserDataSchema}
+        validationSchema={UserDataSchemaValidation}
         onSubmit={(values, { resetForm }) => {
           const { file, ...userCredentials } = values;
           const profileId = profileData._id;
