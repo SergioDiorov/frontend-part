@@ -32,7 +32,7 @@ export const deleteUser = createAsyncThunk('currentUser/deleteUser', async (user
   return response.data.user;
 });
 
-export const getCurrentUserProfiles = createAsyncThunk('currentUser/getCurrentUserPrifiles', async (userId: string) => {
+export const getCurrentUserProfiles = createAsyncThunk('currentUser/getCurrentUserProfiles', async (userId: string) => {
   const response = await profilesApi.getProfiles(userId);
   return response.data.profiles;
 });

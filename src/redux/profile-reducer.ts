@@ -13,7 +13,7 @@ const initialState: InitialState = {
   areProfilesChanged: false
 };
 
-export const getUserPrifile = createAsyncThunk('profiles/getUserPrifile', async (userId: string) => {
+export const getUserProfile = createAsyncThunk('profiles/getUserProfile', async (userId: string) => {
   const response = await profilesApi.getProfiles(userId);
   return response.data.profiles;
 });
@@ -41,7 +41,7 @@ const profiles = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(
-      getUserPrifile.fulfilled,
+      getUserProfile.fulfilled,
       (state, action: PayloadAction<ProfileDataResponseType[]>) => {
         state.profiles = action.payload;
       }

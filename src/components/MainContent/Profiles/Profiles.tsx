@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import style from 'components/MainContent/Profiles/Profiles.module.scss';
 import { AppDispatch, StateType } from 'redux/store';
-import { getUserPrifile, resetProfileAdded } from 'redux/profile-reducer';
+import { getUserProfile, resetProfileAdded } from 'redux/profile-reducer';
 import { ProfileDataResponseType } from 'types/profileTypes';
 import { AddNewProfileModal } from 'components/MainContent/Profiles/AddNewProfileModal/AddNewProfileModal';
 import { EditProfileModal } from 'components/MainContent/Profiles/EditProfileModal/EditProfileModal';
@@ -28,13 +28,13 @@ export const Profiles: React.FC = () => {
   useEffect(() => {
     if (areProfilesChanged && !createProfile && userId) {
       dispatch(resetProfileAdded());
-      dispatch(getUserPrifile(userId));
+      dispatch(getUserProfile(userId));
     }
   }, [areProfilesChanged]);
 
   useEffect(() => {
     if (userId) {
-      dispatch(getUserPrifile(userId));
+      dispatch(getUserProfile(userId));
     }
   }, []);
 
