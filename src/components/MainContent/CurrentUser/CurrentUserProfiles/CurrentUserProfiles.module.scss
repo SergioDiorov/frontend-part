@@ -1,36 +1,34 @@
 @import "assets/styles/color-variables.scss";
 
 .profilesContainer {
-  height: 100%;
-  text-align: center;
-  background: url("../../../img/background-images/usersBG.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: right;
-  background-attachment: fixed;
-  padding: 43px 33px 33px 33px;
+  animation: entrance 0.3s ease-in 0s 1 normal forwards;
+  width: 100%;
 
-  .usersTitle {
+  .title {
+    text-align: center;
     font-size: 32px;
     margin: 0 0 24px 0;
     font-weight: 700;
   }
-
-  .cardContainer {
+  .profileCardsContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, 234px);
     justify-content: center;
     flex-flow: wrap;
     gap: 33px;
-    animation: entrance 0.2s ease-in 0s 1 normal forwards;
   }
+}
+
+.noProfilesTitle {
+  font-size: 32px;
+  margin: 0 0 24px 0;
+  font-weight: 700;
 }
 
 @keyframes entrance {
   0% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }

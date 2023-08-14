@@ -1,0 +1,31 @@
+@import "assets/styles/color-variables.scss";
+
+.createProfileButton {
+  width: 234px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: $color-dark-transparent-background;
+  box-shadow: 2px 4px 13px 1px $color-sidebar-shadow;
+  color: $color-text-main;
+  font-size: 18px;
+  padding: 40px 20px;
+
+  img {
+    border: 2px solid $color-main-background;
+    border-radius: 50%;
+    padding: 10px;
+    width: 84px;
+    height: 84px;
+    margin: 0 0 14px 0;
+  }
+  transition: 0.2s ease;
+  transform: translateY(0px);
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}

@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
-import style from 'components/MainContent/Profiles/Profiles.module.scss';
-import { AppDispatch, StateType } from 'redux/store';
-import { getUserProfile, resetProfileAdded } from 'redux/profile-reducer';
+import style from 'components/MainContent/CurrentUser/CurrentUserProfiles/CurrentUserProfiles.module.scss';
+import { StateType } from 'redux/store';
 import { ProfileDataResponseType } from 'types/profileTypes';
 import { AddNewProfileModal } from 'components/MainContent/Profiles/AddNewProfileModal/AddNewProfileModal';
 import { EditProfileModal } from 'components/MainContent/Profiles/EditProfileModal/EditProfileModal';
@@ -12,39 +10,32 @@ import { DeleteProfileModal } from 'components/MainContent/Profiles/DeleteProfil
 import { ProfileCard } from 'components/MainContent/Profiles/ProfileCard/ProfileCard';
 import { CreateProfileButton } from 'components/MainContent/Profiles/CreateProfileButton/CreateProfileButton';
 
-export const Profiles: React.FC = () => {
+type CurrentUserProfilesProps = {
+  userId: string;
+};
+
+export const CurrentUserProfiles: React.FC<CurrentUserProfilesProps> = ({
+  userId,
+}) => {
+  const userProfiles = useSelector(
+    (state: StateType) => state.currentUser.userProfiles
+  );
   const [createProfile, setCreateProfile] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [profileData, setProfileData] =
     useState<null | ProfileDataResponseType>(null);
 
-  const userId = useSelector((state: StateType) => state.auth.userId);
-  const profiles = useSelector((state: StateType) => state.profile.profiles);
-  const areProfilesChanged = useSelector(
-    (state: StateType) => state.profile.areProfilesChanged
-  );
-  const dispatch = useDispatch<AppDispatch>();
+  if (!userProfiles?.length) {
+    return <h1 className={style.noProfilesTitle}>User has no profiles yet</h1>;
+  }
 
-  useEffect(() => {
-    if (areProfilesChanged && !createProfile && userId) {
-      dispatch(resetProfileAdded());
-      dispatch(getUserProfile(userId));
-    }
-  }, [areProfilesChanged]);
-
-  useEffect(() => {
-    if (userId) {
-      dispatch(getUserProfile(userId));
-    }
-  }, []);
-
-  return userId ? (
+  return (
     <div className={style.profilesContainer}>
       {createProfile && (
         <AddNewProfileModal
-          userId={userId}
           setCreateProfile={setCreateProfile}
+          userId={userId}
         />
       )}
       {showEditModal && profileData && (
@@ -59,9 +50,9 @@ export const Profiles: React.FC = () => {
           setShowDeleteModal={setShowDeleteModal}
         />
       )}
-      <h1 className={style.usersTitle}>Profiles</h1>
-      <div className={style.cardContainer}>
-        {profiles?.map((profile) => (
+      <h1 className={style.title}>Profiles</h1>
+      <div className={style.profileCardsContainer}>
+        {userProfiles?.map((profile) => (
           <ProfileCard
             key={profile._id}
             profile={profile}
@@ -73,7 +64,5 @@ export const Profiles: React.FC = () => {
         <CreateProfileButton setCreateProfile={setCreateProfile} />
       </div>
     </div>
-  ) : (
-    <Navigate to='/signin' replace={true} />
   );
 };

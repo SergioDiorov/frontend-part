@@ -4,6 +4,7 @@ import authReducer from 'redux/auth-reducer';
 import signedUserReducer from 'redux/signed-user-reducer';
 import usersPageReducer from 'redux/users-page-reducer';
 import currentUserReducer from 'redux/current-user-reducer';
+import profileReducer from 'redux/profile-reducer';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     signedUser: signedUserReducer,
     users: usersPageReducer,
     currentUser: currentUserReducer,
+    profile: profileReducer,
   },
 });
 

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { AuthResponseType, userAuthApi } from 'api/api';
+import { userAuthApi } from 'api/api';
+import { AuthResponseType } from 'types/apiTypes';
 import { UserSignInType, UserSignUpType, responseErrorType } from 'types/types';
 
 export type InitialState = {

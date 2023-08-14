@@ -32,14 +32,16 @@ export const Users: React.FC = () => {
             return (
               user._id &&
               user.email &&
+              user.userName &&
               user.isAdmin !== null &&
-              user.userName && (
+              user.profileCount !== null && (
                 <Link to={`/users/${user._id}`} state={user} key={user._id}>
                   <UserCard
                     email={user.email}
                     id={user._id}
                     isAdmin={user.isAdmin}
                     userName={user.userName}
+                    profileCount={user.profileCount}
                   />
                 </Link>
               )

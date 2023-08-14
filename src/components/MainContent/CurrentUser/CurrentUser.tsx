@@ -2,12 +2,17 @@ import { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch, StateType } from 'redux/store';
-import { getCurrentUserById } from 'redux/current-user-reducer';
 import style from 'components/MainContent/CurrentUser/CurrentUser.module.scss';
+import { AppDispatch, StateType } from 'redux/store';
 import { CurrentUserCard } from 'components/MainContent/CurrentUser/CurrentUserCard/CurrentUserCard';
 import { EditUserModal } from 'components/MainContent/CurrentUser/EditUserModal/EditUserModal';
 import { DeleteUserModal } from 'components/MainContent/CurrentUser/DeleteUserModal/DeleteUserModal';
+import { CurrentUserProfiles } from 'components/MainContent/CurrentUser/CurrentUserProfiles/CurrentUserProfiles';
+import {
+  getCurrentUserById,
+  getCurrentUserProfiles,
+} from 'redux/current-user-reducer';
+import { resetProfileAdded } from 'redux/profile-reducer';
 
 export const CurrentUser: React.FC = () => {
   const { state } = useLocation();
@@ -15,14 +20,25 @@ export const CurrentUser: React.FC = () => {
   const [deleteUserMode, setDeleteUserMode] = useState(false);
   const [isUserDeleted, setUserDeleted] = useState(false);
 
-  const dispatch = useDispatch<AppDispatch>();
+  const areProfilesChanged = useSelector(
+    (state: StateType) => state.profile.areProfilesChanged
+  );
   const loggedUserId = useSelector((state: StateType) => state.auth.userId);
   const userData = useSelector(
     (state: StateType) => state.currentUser.userData
   );
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (areProfilesChanged) {
+      dispatch(resetProfileAdded());
+      dispatch(getCurrentUserProfiles(state._id));
+    }
+  }, [areProfilesChanged]);
 
   useEffect(() => {
     dispatch(getCurrentUserById(state._id));
+    dispatch(getCurrentUserProfiles(state._id));
   }, []);
 
   if (!loggedUserId) {
@@ -57,9 +73,7 @@ export const CurrentUser: React.FC = () => {
         setEditUserMode={setEditUserMode}
         setDeleteUserMode={setDeleteUserMode}
       />
-      <div className={style.profilesContainer}>
-        <h1 className={style.title}>Profiles</h1>
-      </div>
+      <CurrentUserProfiles userId={state._id} />
     </div>
   );
 };

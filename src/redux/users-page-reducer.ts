@@ -9,6 +9,7 @@ export type InitialState = {
     userName: string | null;
     email: string | null;
     isAdmin: boolean | null;
+    profileCount: number | null;
   }>;
 };
 

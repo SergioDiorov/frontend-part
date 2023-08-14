@@ -1,7 +1,14 @@
 import axios, { AxiosResponse } from 'axios';
 
-import { AllUsersResponseType, UserResponseType } from 'types/apiTypes';
-import { UserSignUpType, UserSignInType, UserType } from 'types/types';
+import {
+  AllUsersResponseType, UserResponseType, AuthResponseType,
+} from 'types/apiTypes';
+import {
+  AllProfilesResponseType, ProfileDataResponseType, ProfileResponseType, ProfileType
+} from 'types/profileTypes';
+import {
+  UserSignUpType, UserSignInType, UserType
+} from 'types/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -34,17 +41,6 @@ instance.interceptors.response.use(
     throw error;
   }
 );
-
-export type AuthResponseType = {
-  code: number;
-  message: string;
-  accessToken: string;
-  refreshToken: string;
-  user?: {
-    email: string;
-    id: string;
-  };
-};
 
 export const userAuthApi = {
   signUp(
@@ -82,5 +78,20 @@ export const usersApi = {
   },
   deleteUser(userId: string) {
     return instance.delete<UserResponseType>(`users/${userId}`);
+  },
+};
+
+export const profilesApi = {
+  getProfiles(userId: string): Promise<AxiosResponse<AllProfilesResponseType>> {
+    return instance.get<AllProfilesResponseType>(`profiles/${userId}`);
+  },
+  addProfile(userId: string, userCredentials: Omit<ProfileDataResponseType, '_id'>): Promise<AxiosResponse<ProfileResponseType>> {
+    return instance.post<ProfileResponseType>(`profiles/${userId}`, userCredentials);
+  },
+  changeProfileData(profileId: string, userCredentials: Partial<ProfileType>): Promise<AxiosResponse<ProfileResponseType>> {
+    return instance.patch<ProfileResponseType>(`profiles/${profileId}`, userCredentials);
+  },
+  deleteProfile(profileId: string) {
+    return instance.delete<ProfileResponseType>(`profiles/${profileId}`);
   },
 };

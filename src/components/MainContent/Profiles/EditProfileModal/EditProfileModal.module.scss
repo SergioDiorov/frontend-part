@@ -1,0 +1,268 @@
+@import "assets/styles/color-variables.scss";
+
+.modalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-dark-transparent-background;
+  padding: 30px;
+  overflow-y: scroll;
+  z-index: 9;
+  animation: entrance 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  cursor: pointer;
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: $color-transparent-background;
+  }
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background-color: $color-transparent-background;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: $color-background-decline-button;
+    border: $color-dark-background 3px solid;
+  }
+  .formWrapper {
+    width: 100%;
+    height: fit-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 50px;
+
+    .formContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      max-width: 656px;
+      width: 100%;
+      margin: auto;
+      padding: 34px 80px 64px 80px;
+      border-radius: 25px;
+      background-color: $color-main-background;
+      color: $color-dark-background;
+      animation: showModal 0.3s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      cursor: default;
+
+      span {
+        text-align: left;
+        margin: 0 0 12px 0;
+        font-size: 21px;
+      }
+
+      .formTitle {
+        font-weight: 700;
+        margin: 0 0 24px 0;
+        font-size: 35px;
+      }
+
+      .fieldWrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        max-width: 496px;
+        width: 100%;
+
+        .fileLabel {
+          img {
+            display: block;
+            margin: auto;
+            width: 120px;
+            height: 120px;
+          }
+
+          span {
+            display: block;
+            text-align: center;
+            margin-top: 5px;
+            cursor: pointer;
+          }
+
+          .fileInput {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+          }
+        }
+
+        .textInput {
+          position: relative;
+          width: 100%;
+          height: 70px;
+          border-radius: 20px;
+          background: $color-dark-transparent-background;
+          color: $color-text-main;
+          font-size: 21px;
+          padding: 20px 35px;
+          margin: 0 0 30px 0;
+          z-index: 2;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          background: transparent;
+          bottom: 0;
+          color: transparent;
+          cursor: pointer;
+          height: auto;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: auto;
+        }
+
+        .calendarIcon {
+          display: block;
+          position: absolute;
+          top: 53px;
+          right: 35px;
+          margin: auto 0;
+          width: 27px;
+          height: 26px;
+          z-index: 10;
+          pointer-events: none;
+          background-color: $color-dark-background;
+        }
+      }
+
+      .radioContiner {
+        position: relative;
+        margin: 0 0 37px 0;
+        width: 100%;
+        text-align: center;
+
+        .radioTitle {
+          display: block;
+          margin: 0 0 28px 0;
+        }
+
+        .radioMale {
+          margin: 0 23px 0 0;
+        }
+        .radioFemale {
+          margin: 0 0 0 23px;
+        }
+
+        input[type="radio"] {
+          appearance: none;
+          background-color: $color-checkbox-background;
+          margin: 0 24px 0 0;
+          width: 24px;
+          height: 24px;
+          transform: translateY(-0.075px);
+          border-radius: 1px;
+        }
+
+        input[type="radio"]:checked {
+          background-color: $color-text-red;
+        }
+
+        .radioSpan {
+          position: relative;
+          top: -5px;
+          cursor: pointer;
+        }
+
+        .fieldError {
+          bottom: -25px !important;
+        }
+      }
+
+      .fieldWrapper,
+      .radioContiner {
+        .fieldError {
+          color: $color-checkbox-background;
+          background-color: $color-text-red;
+          font-size: 13px;
+          position: absolute;
+          bottom: 7px;
+          margin: auto;
+          left: 0;
+          right: 0;
+          width: fit-content;
+          padding: 3px 7px;
+          border-radius: 5px;
+          z-index: 1;
+          animation: showError 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+      }
+
+      .formButtonContainer {
+        margin: 13px 0 0 0;
+
+        .submitButton,
+        .closeButton {
+          width: 217px;
+          height: 57px;
+          color: $color-text-button;
+          font-size: 21px;
+          border-radius: 15px;
+          transition: 0.2s ease;
+          &:hover {
+            filter: brightness(1.2);
+          }
+          &:active {
+            transform: scale(0.97);
+          }
+        }
+
+        .submitButton {
+          background-color: $color-background-accept-button;
+          margin: 0 20px 0 0;
+        }
+
+        .closeButton {
+          background-color: $color-background-decline-button;
+          margin: 0 0 0 20px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes showError {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

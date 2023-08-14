@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { InitialState } from 'redux/signed-user-reducer';
 
-type PaginationType = Array<Omit<InitialState, 'id'> & { _id?: string }>;
+type PaginationType = Array<Omit<InitialState, 'id'> & { _id?: string } & { profileCount: number | null }>;
 
 const usePagination = (usersArray: PaginationType) => {
   const [currentPage, setСurrentPage] = useState(1);
