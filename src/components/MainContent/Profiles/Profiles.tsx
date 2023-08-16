@@ -11,6 +11,10 @@ import { EditProfileModal } from 'components/MainContent/Profiles/EditProfileMod
 import { DeleteProfileModal } from 'components/MainContent/Profiles/DeleteProfileModal/DeleteProfileModal';
 import { ProfileCard } from 'components/MainContent/Profiles/ProfileCard/ProfileCard';
 import { CreateProfileButton } from 'components/MainContent/Profiles/CreateProfileButton/CreateProfileButton';
+import { Pagination } from 'components/common/Pagination/Pagination';
+import { ProfileSearch } from 'components/MainContent/Profiles/ProfileSearch/ProfileSearch';
+import { ProfileFilters } from 'components/MainContent/Profiles/ProfileFilters/ProfileFilters';
+import usePagination from 'assets/pagination/usePagination';
 
 export const Profiles: React.FC = () => {
   const [createProfile, setCreateProfile] = useState(false);
@@ -39,6 +43,9 @@ export const Profiles: React.FC = () => {
     }
   }, []);
 
+  const { paginatedArray, totalPages, currentPage, nextPage, prevPage } =
+    usePagination(profiles?.length ? profiles : []);
+
   return userId ? (
     <div className={style.profilesContainer}>
       {createProfile && (
@@ -60,8 +67,12 @@ export const Profiles: React.FC = () => {
         />
       )}
       <h1 className={style.usersTitle}>Profiles</h1>
+      <div className={style.filterContainer}>
+        <ProfileSearch userId={userId} />
+        <ProfileFilters userId={userId} />
+      </div>
       <div className={style.cardContainer}>
-        {profiles?.map((profile) => (
+        {paginatedArray?.map((profile) => (
           <ProfileCard
             key={profile._id}
             profile={profile}
@@ -70,8 +81,19 @@ export const Profiles: React.FC = () => {
             setProfileData={setProfileData}
           />
         ))}
-        <CreateProfileButton setCreateProfile={setCreateProfile} />
+        {currentPage === totalPages && (
+          <CreateProfileButton setCreateProfile={setCreateProfile} />
+        )}
       </div>
+
+      {paginatedArray && paginatedArray.length && totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          nextPage={nextPage}
+          prevPage={prevPage}
+        />
+      )}
     </div>
   ) : (
     <Navigate to='/signin' replace={true} />

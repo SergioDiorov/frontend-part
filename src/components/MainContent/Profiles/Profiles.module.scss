@@ -15,7 +15,11 @@
     margin: 0 0 24px 0;
     font-weight: 700;
   }
-
+  .filterContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 32px;
+  }
   .cardContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, 234px);

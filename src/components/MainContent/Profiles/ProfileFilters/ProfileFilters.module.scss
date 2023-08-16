@@ -1,0 +1,182 @@
+@import "assets/styles/color-variables.scss";
+
+.selectContainer {
+  position: relative;
+  color: $color-text-main;
+  z-index: 20;
+  .selectedOptionOpen,
+  .selectedOptionClose {
+    position: relative;
+    background-color: $color-dark-transparent-background;
+    width: 154px;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+
+    img {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      top: 0;
+      bottom: 0;
+      right: 18px;
+      margin: auto;
+    }
+  }
+  .selectedOptionOpen {
+    border-radius: 15px;
+    &:hover {
+      background-color: $color-nav-link-hover;
+    }
+  }
+
+  .selectedOptionClose {
+    border-radius: 15px 15px 0px 0px;
+
+    &:after {
+      content: "";
+      width: 100%;
+      position: absolute;
+      background-color: $color-transparent-border;
+      height: 1px;
+      bottom: 0;
+    }
+    img {
+      transform: rotate(180deg);
+    }
+  }
+
+  .dropdownList {
+    position: absolute;
+    top: 37px;
+    left: 0;
+    right: 0;
+    background-color: $color-dark-transparent-background;
+    padding: 8px 13px 13px 13px;
+    text-align: left;
+    border-radius: 0px 0px 15px 15px;
+    z-index: -1;
+    animation: filterEntrance 0.2s ease-in-out 0s 1 normal forwards;
+
+    .option {
+      padding: 6px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: 0.2s;
+      &:hover {
+        background-color: $color-nav-link-hover;
+      }
+    }
+  }
+}
+.locationContainer {
+  position: relative;
+  color: $color-text-main;
+  z-index: 20;
+  max-width: 495px;
+  width: 100%;
+  margin: 0 15px;
+
+  .searchInputContainer {
+    position: relative;
+
+    .openedInput,
+    .closedInput {
+      position: relative;
+      width: 100%;
+      height: 37px;
+      padding: 6px 54px 6px 30px;
+      font-size: 18px;
+      border-radius: 15px;
+      background-color: $color-dark-transparent-background;
+      color: $color-sidebar-text;
+      transition: 0.2s;
+      animation: inputEntrance 0.3s cubic-bezier(0.42, 0, 0.2, 1.01) 0s 1 normal forwards;
+    }
+
+    .openedInput {
+      border-radius: 15px;
+      &:hover {
+        background-color: $color-nav-link-hover;
+      }
+    }
+
+    .closedInput {
+      border-radius: 15px 15px 0 0;
+    }
+
+    img {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      top: 0;
+      bottom: 0;
+      right: 18px;
+      margin: auto;
+    }
+  }
+
+  .dropdownList {
+    position: absolute;
+    top: 36px;
+    left: 0px;
+    right: 0px;
+    background-color: $color-dark-transparent-background;
+    padding: 9px 13px;
+    text-align: left;
+    border-radius: 0 0 15px 15px;
+    z-index: 99;
+    border-top: 1px solid $color-transparent-border;
+    animation: searchListEntrance 0.2s ease-in 0s 1 normal forwards;
+
+    .option {
+      padding: 6px;
+      cursor: pointer;
+      margin: 3px 0;
+      border-radius: 5px;
+      transition: 0.2s;
+      &:hover {
+        background-color: $color-nav-link-hover;
+      }
+    }
+  }
+}
+
+@keyframes filterEntrance {
+  0% {
+    transform: matrix(1, 0, 0, 0.1, 0, -70);
+    opacity: 0;
+  }
+
+  100% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes searchListEntrance {
+  0% {
+    transform: matrix(1, 0, 0, 0.1, 0, -30);
+    opacity: 0;
+  }
+
+  100% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes inputEntrance {
+  0% {
+    transform: matrix(0.01, 0, 0, 1, 105, 0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    opacity: 1;
+  }
+}
