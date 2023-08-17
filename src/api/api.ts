@@ -1,14 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 
-import {
-  AllUsersResponseType, UserResponseType, AuthResponseType,
-} from 'types/apiTypes';
-import {
-  AllProfilesResponseType, ProfileDataResponseType, ProfileResponseType, ProfileType, SearchListResponseType
-} from 'types/profileTypes';
-import {
-  UserSignUpType, UserSignInType, UserType
-} from 'types/types';
+import { AllUsersResponseType, UserResponseType, AuthResponseType } from 'types/apiTypes';
+import { DashboardInfoResponseType } from 'types/dashboardTypes';
+import { AllProfilesResponseType, ProfileDataResponseType, ProfileResponseType, ProfileType, SearchListResponseType } from 'types/profileTypes';
+import { UserSignUpType, UserSignInType, UserType } from 'types/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -113,3 +108,9 @@ export const profilesApi = {
     return instance.get<SearchListResponseType>(`profiles/searchCitiesList/${userId}?city=${city}`);
   },
 };
+
+export const dashboardApi = {
+  getDashboardInfo(): Promise<AxiosResponse<DashboardInfoResponseType>> {
+    return instance.get<DashboardInfoResponseType>('dashboard');
+  },
+}
