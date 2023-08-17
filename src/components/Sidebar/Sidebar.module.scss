@@ -53,6 +53,9 @@
     }
   }
   .logOutButton {
+    position: fixed;
+    z-index: 5;
+    bottom: 28px;
     text-align: left;
     color: $color-text-white;
     background: none;
