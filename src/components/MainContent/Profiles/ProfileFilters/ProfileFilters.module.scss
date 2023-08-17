@@ -116,6 +116,7 @@
       bottom: 0;
       right: 18px;
       margin: auto;
+      animation: opacityEntrance 0.5s ease-in 0s 1 normal forwards;
     }
   }
 
@@ -177,6 +178,16 @@
 
   100% {
     transform: matrix(1, 0, 0, 1, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes opacityEntrance {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
     opacity: 1;
   }
 }
