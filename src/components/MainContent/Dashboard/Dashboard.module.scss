@@ -23,6 +23,7 @@
     margin: 67px auto 0 auto;
     border-radius: 15px;
     overflow: hidden;
+    animation: entrance 0.3s ease-in 0s 1 normal forwards;
 
     .infoContainer {
       position: relative;
@@ -71,5 +72,15 @@
         background-color: $color-red-transparent-background;
       }
     }
+  }
+}
+
+@keyframes entrance {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
