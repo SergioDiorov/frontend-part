@@ -3,11 +3,9 @@ import { Navigate } from 'react-router';
 import { AppDispatch, StateType } from 'redux/store';
 
 import style from 'components/MainContent/Dashboard/Dashboard.module.scss';
-import usersDashboardIcon from 'img/icons/usersDashboard.svg';
-import profilesDashboardIcon from 'img/icons/profilesDashboard.svg';
-import adultsDashboardIcon from 'img/icons/adultsDashboard.svg';
 import { useEffect } from 'react';
 import { getDashboardInfoTh } from 'redux/dashboard-reducer';
+import { DashboardInfo } from './DashboardInfo/DashboardInfo';
 
 export const Dashboard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,29 +29,9 @@ export const Dashboard: React.FC = () => {
       <h1 className={style.dashboardTitle}>Dashboard</h1>
 
       <div className={style.dashboardInfoContainer}>
-        <div className={style.infoContainer}>
-          <p className={style.infoTitle}>
-            <img src={usersDashboardIcon} alt='' />
-            <span>Users</span>
-          </p>
-          <p className={style.infoData}>{usersCount}</p>
-        </div>
-
-        <div className={style.infoContainer}>
-          <p className={style.infoTitle}>
-            <img src={profilesDashboardIcon} alt='' />
-            <span>Profiles</span>
-          </p>
-          <p className={style.infoData}>{profilesCount}</p>
-        </div>
-
-        <div className={style.infoContainer}>
-          <p className={style.infoTitle}>
-            <img src={adultsDashboardIcon} alt='' />
-            <span>Users 18+</span>
-          </p>
-          <p className={style.infoData}>{adultProfilesCount}</p>
-        </div>
+        <DashboardInfo infoTitle={'Users'} infoData={usersCount} />
+        <DashboardInfo infoTitle={'Profiles'} infoData={profilesCount} />
+        <DashboardInfo infoTitle={'Users 18+'} infoData={adultProfilesCount} />
       </div>
     </div>
   ) : (

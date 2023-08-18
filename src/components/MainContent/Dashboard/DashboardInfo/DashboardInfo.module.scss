@@ -1,0 +1,49 @@
+@import "assets/styles/color-variables.scss";
+
+.infoContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-dark-transparent-background;
+  color: $color-text-main;
+  height: 200px;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    background: $color-grey-transparent-background-line;
+  }
+
+  &:last-child::after {
+    content: "";
+    display: none;
+  }
+
+  .infoTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 21px;
+    padding: 0 20px;
+    img {
+      margin: 0 42px 0 0;
+    }
+  }
+  .infoData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 154px;
+    min-width: 154px;
+    height: 100%;
+    font-size: 25px;
+    background-color: $color-red-transparent-background;
+  }
+}
