@@ -42,6 +42,7 @@ const usePagination = (usersArray: PaginationType | any) => {
     totalPages: tatalPages,
     nextPage: () => changePage(true),
     prevPage: () => changePage(false),
+    resetPages: () => setСurrentPage(1),
   };
 };
 

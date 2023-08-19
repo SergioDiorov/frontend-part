@@ -20,6 +20,7 @@ export const Profiles: React.FC = () => {
   const [createProfile, setCreateProfile] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [isNameSearch, setNameSearch] = useState(false);
   const [profileData, setProfileData] =
     useState<null | ProfileDataResponseType>(null);
 
@@ -29,6 +30,15 @@ export const Profiles: React.FC = () => {
     (state: StateType) => state.profile.areProfilesChanged
   );
   const dispatch = useDispatch<AppDispatch>();
+
+  const {
+    paginatedArray,
+    totalPages,
+    currentPage,
+    nextPage,
+    prevPage,
+    resetPages,
+  } = usePagination(profiles?.length ? profiles : []);
 
   useEffect(() => {
     if (areProfilesChanged && !createProfile && userId) {
@@ -42,9 +52,6 @@ export const Profiles: React.FC = () => {
       dispatch(getUserProfile(userId));
     }
   }, []);
-
-  const { paginatedArray, totalPages, currentPage, nextPage, prevPage } =
-    usePagination(profiles?.length ? profiles : []);
 
   return userId ? (
     <div className={style.profilesContainer}>
@@ -68,8 +75,13 @@ export const Profiles: React.FC = () => {
       )}
       <h1 className={style.usersTitle}>Profiles</h1>
       <div className={style.filterContainer}>
-        <ProfileSearch userId={userId} />
-        <ProfileFilters userId={userId} />
+        <ProfileSearch userId={userId} setNameSearch={setNameSearch} />
+        <ProfileFilters
+          userId={userId}
+          resetPages={resetPages}
+          isNameSearch={isNameSearch}
+          setNameSearch={setNameSearch}
+        />
       </div>
       <div className={style.cardContainer}>
         {paginatedArray?.map((profile) => (
@@ -86,7 +98,7 @@ export const Profiles: React.FC = () => {
         )}
       </div>
 
-      {paginatedArray && paginatedArray.length && totalPages > 1 && (
+      {paginatedArray && !!paginatedArray.length && totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

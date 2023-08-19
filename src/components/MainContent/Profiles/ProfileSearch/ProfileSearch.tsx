@@ -8,13 +8,18 @@ import search from 'img/icons/search.svg';
 
 type ProfileSearchPropsType = {
   userId: string;
+  setNameSearch: (param: boolean) => void;
 };
 
-export const ProfileSearch: React.FC<ProfileSearchPropsType> = ({ userId }) => {
+export const ProfileSearch: React.FC<ProfileSearchPropsType> = ({
+  userId,
+  setNameSearch,
+}) => {
   const [searchList, setSearchList] = useState('');
   const dispatch = useDispatch<AppDispatch>();
 
   const handleSearch = (userId: string, name: string) => {
+    setNameSearch(true);
     return dispatch(getProfilesByName({ userId, name: searchList }));
   };
 

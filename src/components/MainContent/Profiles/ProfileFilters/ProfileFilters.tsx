@@ -17,10 +17,16 @@ import arrowDown from 'img/icons/arrowDown.svg';
 
 type ProfileFiltersPropsType = {
   userId: string;
+  resetPages: () => void;
+  isNameSearch: boolean;
+  setNameSearch: (param: boolean) => void;
 };
 
 export const ProfileFilters: React.FC<ProfileFiltersPropsType> = ({
   userId,
+  resetPages,
+  isNameSearch,
+  setNameSearch,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const searchListResponse = useSelector(
@@ -70,6 +76,12 @@ export const ProfileFilters: React.FC<ProfileFiltersPropsType> = ({
   };
 
   useEffect(() => {
+    if (isNameSearch) {
+      setSelectedOption({ value: 'default', label: 'Default' });
+    }
+  }, [isNameSearch]);
+
+  useEffect(() => {
     if (searchListResponse?.includes(searchList)) {
       dispatch(emptySearchList());
     } else {
@@ -84,10 +96,14 @@ export const ProfileFilters: React.FC<ProfileFiltersPropsType> = ({
 
   useEffect(() => {
     setSearchList('');
+    resetPages();
+    setNameSearch(false);
+
     if (
-      selectedOption?.value === 'city' ||
-      selectedOption?.value === 'country' ||
-      selectedOption?.value === 'default'
+      !isNameSearch &&
+      (selectedOption?.value === 'city' ||
+        selectedOption?.value === 'country' ||
+        selectedOption?.value === 'default')
     ) {
       dispatch(getUserProfile(userId));
     }
