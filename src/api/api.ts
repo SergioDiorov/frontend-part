@@ -1,14 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 
-import {
-  AllUsersResponseType, UserResponseType, AuthResponseType,
-} from 'types/apiTypes';
-import {
-  AllProfilesResponseType, ProfileDataResponseType, ProfileResponseType, ProfileType
-} from 'types/profileTypes';
-import {
-  UserSignUpType, UserSignInType, UserType
-} from 'types/types';
+import { AllUsersResponseType, UserResponseType, AuthResponseType } from 'types/apiTypes';
+import { DashboardInfoResponseType } from 'types/dashboardTypes';
+import { AllProfilesResponseType, ProfileDataResponseType, ProfileResponseType, ProfileType, SearchListResponseType } from 'types/profileTypes';
+import { UserSignUpType, UserSignInType, UserType } from 'types/types';
 
 const instance = axios.create({
   withCredentials: true,
@@ -91,7 +86,31 @@ export const profilesApi = {
   changeProfileData(profileId: string, userCredentials: Partial<ProfileType>): Promise<AxiosResponse<ProfileResponseType>> {
     return instance.patch<ProfileResponseType>(`profiles/${profileId}`, userCredentials);
   },
-  deleteProfile(profileId: string) {
+  deleteProfile(profileId: string): Promise<AxiosResponse<ProfileResponseType>> {
     return instance.delete<ProfileResponseType>(`profiles/${profileId}`);
   },
+  getProfilesByName(userId: string, name: string): Promise<AxiosResponse<AllProfilesResponseType>> {
+    return instance.get<AllProfilesResponseType>(`profiles/searchByName/${userId}?profileName=${name}`);
+  },
+  getAdultProfiles(userId: string): Promise<AxiosResponse<AllProfilesResponseType>> {
+    return instance.get<AllProfilesResponseType>(`profiles/searchAdults/${userId}`);
+  },
+  getProfilesByCountry(userId: string, country: string): Promise<AxiosResponse<AllProfilesResponseType>> {
+    return instance.get<AllProfilesResponseType>(`profiles/searchByCountry/${userId}/${country}`);
+  },
+  getProfilesByCity(userId: string, city: string): Promise<AxiosResponse<AllProfilesResponseType>> {
+    return instance.get<AllProfilesResponseType>(`profiles/searchByCity/${userId}/${city}`);
+  },
+  getCountriesList(userId: string, country: string): Promise<AxiosResponse<SearchListResponseType>> {
+    return instance.get<SearchListResponseType>(`profiles/searchCountriesList/${userId}?country=${country}`);
+  },
+  getCitiesList(userId: string, city: string): Promise<AxiosResponse<SearchListResponseType>> {
+    return instance.get<SearchListResponseType>(`profiles/searchCitiesList/${userId}?city=${city}`);
+  },
 };
+
+export const dashboardApi = {
+  getDashboardInfo(): Promise<AxiosResponse<DashboardInfoResponseType>> {
+    return instance.get<DashboardInfoResponseType>('dashboard');
+  },
+}

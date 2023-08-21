@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
 import { InitialState } from 'redux/signed-user-reducer';
+import { ProfileDataResponseType } from 'types/profileTypes';
 
-type PaginationType = Array<Omit<InitialState, 'id'> & { _id?: string } & { profileCount: number | null }>;
+type UserData = Omit<InitialState, 'id'> & { _id?: string } & { profileCount?: number | null };
+type PaginationType = UserData[] | ProfileDataResponseType[];
 
-const usePagination = (usersArray: PaginationType) => {
+const usePagination = (usersArray: PaginationType | any) => {
   const [currentPage, setСurrentPage] = useState(1);
   const showItems = 12;
   const tatalPages = Math.ceil(usersArray.length / showItems);
@@ -32,12 +34,15 @@ const usePagination = (usersArray: PaginationType) => {
     usersArray[i] && paginatedArray.push(usersArray[i]);
   }
 
+  if (!paginatedArray.length && currentPage !== 1) setСurrentPage(1);
+
   return {
     paginatedArray,
     currentPage,
     totalPages: tatalPages,
     nextPage: () => changePage(true),
     prevPage: () => changePage(false),
+    resetPages: () => setСurrentPage(1),
   };
 };
 

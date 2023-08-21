@@ -48,7 +48,7 @@ export const Users: React.FC = () => {
             );
           })}
       </div>
-      {paginatedArray && paginatedArray.length && totalPages > 1 && (
+      {paginatedArray && !!paginatedArray.length && totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
           currentPage={currentPage}

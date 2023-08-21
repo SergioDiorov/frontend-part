@@ -27,3 +27,7 @@ export type AllProfilesResponseType = ApiResult & {
   profiles: ProfileDataResponseType[];
 };
 
+export type SearchListResponseType = ApiResult & {
+  searchList: string[];
+};
+

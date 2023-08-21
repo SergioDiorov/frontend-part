@@ -15,14 +15,20 @@
     margin: 0 0 24px 0;
     font-weight: 700;
   }
-
+  .filterContainer {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 32px;
+    width: 100%;
+    max-width: 1035px;
+  }
   .cardContainer {
     display: grid;
     grid-template-columns: repeat(auto-fill, 234px);
     justify-content: center;
     flex-flow: wrap;
     gap: 33px;
-    animation: entrance 0.2s ease-in 0s 1 normal forwards;
+    animation: entrance 0.3s ease-in 0s 1 normal forwards;
   }
 }
 
@@ -33,5 +39,19 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1386px) {
+  .filterContainer {
+    width: 100%;
+    max-width: 768px !important;
+  }
+}
+
+@media screen and (max-width: 1052px) {
+  .filterContainer {
+    width: 100%;
+    max-width: 501px !important;
   }
 }
