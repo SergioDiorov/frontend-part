@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 import style from 'components/MainContent/Profiles/EditProfileModal/EditProfileModal.module.scss';
 import { AppDispatch } from 'redux/store';
@@ -20,6 +21,7 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
   setShowEditModal,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const [newProfileAvatar, setNewProfileAvatar] = useState<File | null>(null);
   const formattedBirthDate = new Date(profileData.birthDate)
     .toISOString()
     .split('T')[0];
@@ -29,7 +31,6 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
       <Formik
         enableReinitialize={true}
         initialValues={{
-          file: '',
           name: profileData.name,
           gender: profileData.gender,
           birthDate: formattedBirthDate,
@@ -41,9 +42,33 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
         }}
         validationSchema={UserDataSchemaValidation}
         onSubmit={(values, { resetForm }) => {
-          const { file, ...userCredentials } = values;
           const profileId = profileData._id;
-          dispatch(changeProfileData({ profileId, userCredentials }));
+          const profileCredentials = new FormData();
+          newProfileAvatar &&
+            profileCredentials.append('file', newProfileAvatar);
+
+          formattedBirthDate !== values.birthDate &&
+            profileCredentials.append('birthDate', values.birthDate);
+
+          profileData.gender !== values.gender &&
+            profileCredentials.append('gender', values.gender);
+
+          profileData.name !== values.name &&
+            profileCredentials.append('name', values.name);
+
+          profileData.phone !== values.phone &&
+            profileCredentials.append('phone', values.phone);
+
+          profileData.location.city !== values.location.city &&
+            profileCredentials.append('location.city', values.location.city);
+
+          profileData.location.country !== values.location.country &&
+            profileCredentials.append(
+              'location.country',
+              values.location.country
+            );
+
+          dispatch(changeProfileData({ profileId, profileCredentials }));
           setShowEditModal(false);
           resetForm();
         }}
@@ -62,18 +87,29 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
                 <label className={style.fileLabel}>
                   <img
                     src={
-                      profileData.gender === 'male'
+                      newProfileAvatar
+                        ? URL.createObjectURL(newProfileAvatar)
+                        : profileData.photo &&
+                          process.env.REACT_APP_STATIC_IMAGES_URL
+                        ? process.env.REACT_APP_STATIC_IMAGES_URL +
+                          profileData.photo
+                        : profileData.gender === 'male'
                         ? avatarProfileUser
                         : avatarProfileUserWM
                     }
                     alt='User avatar'
                   />
                   <span>Choose picture</span>
-                  <Field type='file' name='file' className={style.fileInput} />
+                  <input
+                    type='file'
+                    name='file'
+                    className={style.fileInput}
+                    onChange={(e) => {
+                      e.currentTarget.files?.length &&
+                        setNewProfileAvatar(e.currentTarget.files[0]);
+                    }}
+                  />
                 </label>
-                {errors.file && touched.file && (
-                  <div className={style.fieldError}>{errors.file}</div>
-                )}
               </div>
 
               <div className={style.fieldWrapper}>

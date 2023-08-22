@@ -4,6 +4,7 @@ export type ProfileType = {
     city: string
   },
   name: string,
+  photo: string | FormData | null,
   birthDate: string,
   gender: string,
   phone: string,

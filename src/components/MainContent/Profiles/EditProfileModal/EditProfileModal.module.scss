@@ -81,6 +81,9 @@
             margin: auto;
             width: 120px;
             height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            background-color: $color-dark-transparent-background;
           }
 
           span {

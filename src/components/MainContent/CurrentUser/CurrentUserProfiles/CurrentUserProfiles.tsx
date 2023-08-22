@@ -9,6 +9,7 @@ import { EditProfileModal } from 'components/MainContent/Profiles/EditProfileMod
 import { DeleteProfileModal } from 'components/MainContent/Profiles/DeleteProfileModal/DeleteProfileModal';
 import { ProfileCard } from 'components/MainContent/Profiles/ProfileCard/ProfileCard';
 import { CreateProfileButton } from 'components/MainContent/Profiles/CreateProfileButton/CreateProfileButton';
+import { ProfileResultMessage } from 'assets/informationMessages/profileResultMessage';
 
 type CurrentUserProfilesProps = {
   userId: string;
@@ -20,18 +21,24 @@ export const CurrentUserProfiles: React.FC<CurrentUserProfilesProps> = ({
   const userProfiles = useSelector(
     (state: StateType) => state.currentUser.userProfiles
   );
+  const isProfileFulfilled = useSelector(
+    (state: StateType) => state.profile.isProfileFulfilled
+  );
+  const isProfileRejected = useSelector(
+    (state: StateType) => state.profile.isProfileRejected
+  );
+
   const [createProfile, setCreateProfile] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [profileData, setProfileData] =
     useState<null | ProfileDataResponseType>(null);
 
-  if (!userProfiles?.length) {
-    return <h1 className={style.noProfilesTitle}>User has no profiles yet</h1>;
-  }
-
   return (
     <div className={style.profilesContainer}>
+      {(isProfileFulfilled || isProfileRejected) && (
+        <ProfileResultMessage error={isProfileFulfilled ? false : true} />
+      )}
       {createProfile && (
         <AddNewProfileModal
           setCreateProfile={setCreateProfile}
@@ -50,7 +57,9 @@ export const CurrentUserProfiles: React.FC<CurrentUserProfilesProps> = ({
           setShowDeleteModal={setShowDeleteModal}
         />
       )}
-      <h1 className={style.title}>Profiles</h1>
+      <h1 className={style.title}>
+        {userProfiles?.length ? 'Profiles' : 'User has no profiles yet'}
+      </h1>
       <div className={style.profileCardsContainer}>
         {userProfiles?.map((profile) => (
           <ProfileCard

@@ -1,0 +1,35 @@
+@import "assets/styles/color-variables.scss";
+
+.messageContainer {
+  position: fixed;
+  top: 40px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: fit-content;
+  padding: 15px;
+  font-size: 24px;
+  font-weight: 600;
+  border-radius: 20px;
+  animation: showModal 3s ease-in 0s 1 normal forwards;
+  z-index: 30;
+}
+
+@keyframes showModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.8);
+  }
+  15% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-120px) scale(0.8);
+  }
+}

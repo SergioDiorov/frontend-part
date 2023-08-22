@@ -15,6 +15,7 @@ import { Pagination } from 'components/common/Pagination/Pagination';
 import { ProfileSearch } from 'components/MainContent/Profiles/ProfileSearch/ProfileSearch';
 import { ProfileFilters } from 'components/MainContent/Profiles/ProfileFilters/ProfileFilters';
 import usePagination from 'assets/pagination/usePagination';
+import { ProfileResultMessage } from './../../../assets/informationMessages/profileResultMessage';
 
 export const Profiles: React.FC = () => {
   const [createProfile, setCreateProfile] = useState(false);
@@ -29,6 +30,13 @@ export const Profiles: React.FC = () => {
   const areProfilesChanged = useSelector(
     (state: StateType) => state.profile.areProfilesChanged
   );
+  const isProfileFulfilled = useSelector(
+    (state: StateType) => state.profile.isProfileFulfilled
+  );
+  const isProfileRejected = useSelector(
+    (state: StateType) => state.profile.isProfileRejected
+  );
+
   const dispatch = useDispatch<AppDispatch>();
 
   const {
@@ -55,6 +63,9 @@ export const Profiles: React.FC = () => {
 
   return userId ? (
     <div className={style.profilesContainer}>
+      {(isProfileFulfilled || isProfileRejected) && (
+        <ProfileResultMessage error={isProfileFulfilled ? false : true} />
+      )}
       {createProfile && (
         <AddNewProfileModal
           userId={userId}
@@ -97,7 +108,6 @@ export const Profiles: React.FC = () => {
           <CreateProfileButton setCreateProfile={setCreateProfile} />
         )}
       </div>
-
       {paginatedArray && !!paginatedArray.length && totalPages > 1 && (
         <Pagination
           totalPages={totalPages}
