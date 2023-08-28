@@ -59,6 +59,9 @@ export const Profiles: React.FC = () => {
     }
   }, []);
 
+  console.log(currentPage);
+  console.log(totalPages);
+
   return userId ? (
     <div className={style.profilesContainer}>
       {isOutcome && <ProfileResultMessage error={!isProfileFulfilled} />}
@@ -100,7 +103,7 @@ export const Profiles: React.FC = () => {
             setProfileData={setProfileData}
           />
         ))}
-        {currentPage === totalPages && (
+        {(currentPage === totalPages || paginatedArray.length === 0) && (
           <CreateProfileButton setCreateProfile={setCreateProfile} />
         )}
       </div>
