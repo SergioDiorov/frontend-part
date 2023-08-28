@@ -38,19 +38,7 @@ export const AddNewProfileModal: React.FC<AddNewProfileModalPropsType> = ({
         }}
         validationSchema={UserDataSchemaValidation}
         onSubmit={(values, { resetForm }) => {
-          const profileCredentials = new FormData();
-          newProfileAvatar &&
-            profileCredentials.append('file', newProfileAvatar);
-          profileCredentials.append('birthDate', values.birthDate);
-          profileCredentials.append('gender', values.gender);
-          profileCredentials.append('name', values.name);
-          profileCredentials.append('phone', values.phone);
-          profileCredentials.append('user', userId);
-          profileCredentials.append('location.city', values.location.city);
-          profileCredentials.append(
-            'location.country',
-            values.location.country
-          );
+          const profileCredentials = { ...values, file: newProfileAvatar };
 
           dispatch(addNewProfile({ userId, profileCredentials }));
           setCreateProfile(false);

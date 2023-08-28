@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 import { AllUsersResponseType, UserResponseType, AuthResponseType } from 'types/apiTypes';
 import { DashboardInfoResponseType } from 'types/dashboardTypes';
-import { AllProfilesResponseType, ProfileResponseType, SearchListResponseType } from 'types/profileTypes';
+import { AllProfilesResponseType, ProfileCredentialsType, ProfileResponseType, SearchListResponseType } from 'types/profileTypes';
 import { UserSignUpType, UserSignInType, UserType } from 'types/types';
 
 const instance = axios.create({
@@ -80,14 +80,14 @@ export const profilesApi = {
   getProfiles(userId: string): Promise<AxiosResponse<AllProfilesResponseType>> {
     return instance.get<AllProfilesResponseType>(`profiles/${userId}`);
   },
-  addProfile(userId: string, profileCredentials: FormData): Promise<AxiosResponse<ProfileResponseType>> {
+  addProfile(userId: string, profileCredentials: Partial<ProfileCredentialsType>): Promise<AxiosResponse<ProfileResponseType>> {
     return instance.post<ProfileResponseType>(`profiles/${userId}`, profileCredentials, {
       headers: {
         'content-type': 'multipart/form-data'
       }
     });
   },
-  changeProfileData(profileId: string, profileData: FormData): Promise<AxiosResponse<ProfileResponseType>> {
+  changeProfileData(profileId: string, profileData: Partial<ProfileCredentialsType>): Promise<AxiosResponse<ProfileResponseType>> {
     return instance.patch<ProfileResponseType>(`profiles/${profileId}`, profileData, {
       headers: {
         'content-type': 'multipart/form-data'

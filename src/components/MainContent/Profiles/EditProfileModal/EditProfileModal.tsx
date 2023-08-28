@@ -5,7 +5,10 @@ import { useState } from 'react';
 import style from 'components/MainContent/Profiles/EditProfileModal/EditProfileModal.module.scss';
 import { AppDispatch } from 'redux/store';
 import { changeProfileData } from 'redux/profile-reducer';
-import { ProfileDataResponseType } from 'types/profileTypes';
+import {
+  ProfileCredentialsType,
+  ProfileDataResponseType,
+} from 'types/profileTypes';
 import { UserDataSchemaValidation } from 'assets/helpers/userDataValidationSchema';
 import calendarIcon from 'img/icons/calendarIcon.svg';
 import avatarProfileUser from 'img/assets/avatarProfileUser.png';
@@ -43,30 +46,29 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
         validationSchema={UserDataSchemaValidation}
         onSubmit={(values, { resetForm }) => {
           const profileId = profileData._id;
-          const profileCredentials = new FormData();
-          newProfileAvatar &&
-            profileCredentials.append('file', newProfileAvatar);
+          const profileCredentials: Partial<ProfileCredentialsType> = {};
+
+          newProfileAvatar && (profileCredentials.file = newProfileAvatar);
 
           formattedBirthDate !== values.birthDate &&
-            profileCredentials.append('birthDate', values.birthDate);
+            (profileCredentials.birthDate = values.birthDate);
 
           profileData.gender !== values.gender &&
-            profileCredentials.append('gender', values.gender);
+            (profileCredentials.gender = values.gender);
 
           profileData.name !== values.name &&
-            profileCredentials.append('name', values.name);
+            (profileCredentials.name = values.name);
 
           profileData.phone !== values.phone &&
-            profileCredentials.append('phone', values.phone);
+            (profileCredentials.phone = values.phone);
 
-          profileData.location.city !== values.location.city &&
-            profileCredentials.append('location.city', values.location.city);
+          profileCredentials.location &&
+            profileData.location.city !== values.location.city &&
+            (profileCredentials.location.city = values.location.city);
 
-          profileData.location.country !== values.location.country &&
-            profileCredentials.append(
-              'location.country',
-              values.location.country
-            );
+          profileCredentials.location &&
+            profileData.location.country !== values.location.country &&
+            (profileCredentials.location.country = values.location.country);
 
           dispatch(changeProfileData({ profileId, profileCredentials }));
           setShowEditModal(false);

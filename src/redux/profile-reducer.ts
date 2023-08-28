@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ProfileDataResponseType } from 'types/profileTypes';
+import { ProfileCredentialsType, ProfileDataResponseType } from 'types/profileTypes';
 import { profilesApi } from 'api/api';
 
 export type InitialState = {
@@ -24,11 +24,11 @@ export const getUserProfile = createAsyncThunk('profiles/getUserProfile', async 
   return response.data.profiles;
 });
 
-export const addNewProfile = createAsyncThunk('profiles/addNewProfile', async ({ userId, profileCredentials }: { userId: string, profileCredentials: FormData }) => {
+export const addNewProfile = createAsyncThunk('profiles/addNewProfile', async ({ userId, profileCredentials }: { userId: string, profileCredentials: ProfileCredentialsType }) => {
   await profilesApi.addProfile(userId, profileCredentials);
 });
 
-export const changeProfileData = createAsyncThunk('profiles/changeProfileData', async ({ profileId, profileCredentials }: { profileId: string, profileCredentials: FormData }) => {
+export const changeProfileData = createAsyncThunk('profiles/changeProfileData', async ({ profileId, profileCredentials }: { profileId: string, profileCredentials: Partial<ProfileCredentialsType> }) => {
   await profilesApi.changeProfileData(profileId, profileCredentials);
 });
 

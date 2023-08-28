@@ -10,6 +10,10 @@ export type ProfileType = {
   phone: string,
 }
 
+export type ProfileCredentialsType = Omit<ProfileType, 'photo'> & {
+  file: File | null;
+}
+
 export type ProfileDataResponseType = ProfileType & {
   _id: string,
   user: string,
