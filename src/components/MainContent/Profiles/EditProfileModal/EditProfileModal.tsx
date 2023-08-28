@@ -1,10 +1,14 @@
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 import style from 'components/MainContent/Profiles/EditProfileModal/EditProfileModal.module.scss';
 import { AppDispatch } from 'redux/store';
 import { changeProfileData } from 'redux/profile-reducer';
-import { ProfileDataResponseType } from 'types/profileTypes';
+import {
+  ProfileCredentialsType,
+  ProfileDataResponseType,
+} from 'types/profileTypes';
 import { UserDataSchemaValidation } from 'assets/helpers/userDataValidationSchema';
 import calendarIcon from 'img/icons/calendarIcon.svg';
 import avatarProfileUser from 'img/assets/avatarProfileUser.png';
@@ -20,6 +24,7 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
   setShowEditModal,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const [newProfileAvatar, setNewProfileAvatar] = useState<File | null>(null);
   const formattedBirthDate = new Date(profileData.birthDate)
     .toISOString()
     .split('T')[0];
@@ -29,7 +34,6 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
       <Formik
         enableReinitialize={true}
         initialValues={{
-          file: '',
           name: profileData.name,
           gender: profileData.gender,
           birthDate: formattedBirthDate,
@@ -41,9 +45,32 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
         }}
         validationSchema={UserDataSchemaValidation}
         onSubmit={(values, { resetForm }) => {
-          const { file, ...userCredentials } = values;
           const profileId = profileData._id;
-          dispatch(changeProfileData({ profileId, userCredentials }));
+          const profileCredentials: Partial<ProfileCredentialsType> = {};
+
+          newProfileAvatar && (profileCredentials.file = newProfileAvatar);
+
+          formattedBirthDate !== values.birthDate &&
+            (profileCredentials.birthDate = values.birthDate);
+
+          profileData.gender !== values.gender &&
+            (profileCredentials.gender = values.gender);
+
+          profileData.name !== values.name &&
+            (profileCredentials.name = values.name);
+
+          profileData.phone !== values.phone &&
+            (profileCredentials.phone = values.phone);
+
+          profileCredentials.location &&
+            profileData.location.city !== values.location.city &&
+            (profileCredentials.location.city = values.location.city);
+
+          profileCredentials.location &&
+            profileData.location.country !== values.location.country &&
+            (profileCredentials.location.country = values.location.country);
+
+          dispatch(changeProfileData({ profileId, profileCredentials }));
           setShowEditModal(false);
           resetForm();
         }}
@@ -62,18 +89,29 @@ export const EditProfileModal: React.FC<EditProfileModalPropsType> = ({
                 <label className={style.fileLabel}>
                   <img
                     src={
-                      profileData.gender === 'male'
+                      newProfileAvatar
+                        ? URL.createObjectURL(newProfileAvatar)
+                        : profileData.photo &&
+                          process.env.REACT_APP_STATIC_IMAGES_URL
+                        ? process.env.REACT_APP_STATIC_IMAGES_URL +
+                          profileData.photo
+                        : profileData.gender === 'male'
                         ? avatarProfileUser
                         : avatarProfileUserWM
                     }
                     alt='User avatar'
                   />
                   <span>Choose picture</span>
-                  <Field type='file' name='file' className={style.fileInput} />
+                  <input
+                    type='file'
+                    name='file'
+                    className={style.fileInput}
+                    onChange={(e) => {
+                      e.currentTarget.files?.length &&
+                        setNewProfileAvatar(e.currentTarget.files[0]);
+                    }}
+                  />
                 </label>
-                {errors.file && touched.file && (
-                  <div className={style.fieldError}>{errors.file}</div>
-                )}
               </div>
 
               <div className={style.fieldWrapper}>

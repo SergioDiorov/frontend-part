@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 import style from 'components/MainContent/Profiles/AddNewProfileModal/AddNewProfileModal.module.scss';
 import { AppDispatch } from 'redux/store';
@@ -18,6 +19,7 @@ export const AddNewProfileModal: React.FC<AddNewProfileModalPropsType> = ({
   userId,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
+  const [newProfileAvatar, setNewProfileAvatar] = useState<File | null>(null);
 
   return (
     <div className={style.modalContainer}>
@@ -36,8 +38,9 @@ export const AddNewProfileModal: React.FC<AddNewProfileModalPropsType> = ({
         }}
         validationSchema={UserDataSchemaValidation}
         onSubmit={(values, { resetForm }) => {
-          const { file, ...userCredentials } = values;
-          dispatch(addNewProfile({ userId, userCredentials }));
+          const profileCredentials = { ...values, file: newProfileAvatar };
+
+          dispatch(addNewProfile({ userId, profileCredentials }));
           setCreateProfile(false);
           resetForm();
         }}
@@ -54,9 +57,24 @@ export const AddNewProfileModal: React.FC<AddNewProfileModalPropsType> = ({
 
               <div className={style.fieldWrapper}>
                 <label className={style.fileLabel}>
-                  <img src={avatarProfileUser} alt='User avatar' />
+                  <img
+                    src={
+                      newProfileAvatar
+                        ? URL.createObjectURL(newProfileAvatar)
+                        : avatarProfileUser
+                    }
+                    alt='User avatar'
+                  />
                   <span>Choose picture</span>
-                  <Field type='file' name='file' className={style.fileInput} />
+                  <input
+                    type='file'
+                    name='file'
+                    className={style.fileInput}
+                    onChange={(e) => {
+                      e.currentTarget.files?.length &&
+                        setNewProfileAvatar(e.currentTarget.files[0]);
+                    }}
+                  />
                 </label>
                 {errors.file && touched.file && (
                   <div className={style.fieldError}>{errors.file}</div>

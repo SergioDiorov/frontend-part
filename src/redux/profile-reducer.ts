@@ -1,17 +1,21 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ProfileDataResponseType, ProfileType } from 'types/profileTypes';
+import { ProfileCredentialsType, ProfileDataResponseType } from 'types/profileTypes';
 import { profilesApi } from 'api/api';
 
 export type InitialState = {
   profiles: null | ProfileDataResponseType[];
   areProfilesChanged: boolean,
+  isProfileFulfilled: boolean,
+  isOutcome: boolean,
   searchList: null | string[],
 };
 
 const initialState: InitialState = {
   profiles: null,
   areProfilesChanged: false,
+  isProfileFulfilled: false,
+  isOutcome: false,
   searchList: null,
 };
 
@@ -20,13 +24,12 @@ export const getUserProfile = createAsyncThunk('profiles/getUserProfile', async 
   return response.data.profiles;
 });
 
-export const addNewProfile = createAsyncThunk('profiles/addNewProfile', async ({ userId, userCredentials }: { userId: string, userCredentials: ProfileType }) => {
-  const userCredentialsToPost = { ...userCredentials, user: userId }
-  await profilesApi.addProfile(userId, userCredentialsToPost);
+export const addNewProfile = createAsyncThunk('profiles/addNewProfile', async ({ userId, profileCredentials }: { userId: string, profileCredentials: ProfileCredentialsType }) => {
+  await profilesApi.addProfile(userId, profileCredentials);
 });
 
-export const changeProfileData = createAsyncThunk('profiles/changeProfileData', async ({ profileId, userCredentials }: { profileId: string, userCredentials: ProfileType }) => {
-  await profilesApi.changeProfileData(profileId, userCredentials);
+export const changeProfileData = createAsyncThunk('profiles/changeProfileData', async ({ profileId, profileCredentials }: { profileId: string, profileCredentials: Partial<ProfileCredentialsType> }) => {
+  await profilesApi.changeProfileData(profileId, profileCredentials);
 });
 
 export const deleteProfile = createAsyncThunk('profiles/deleteProfile', async (profileId: string) => {
@@ -76,6 +79,9 @@ const profiles = createSlice({
     resetProfileAdded(state) {
       state.areProfilesChanged = false;
     },
+    resetOutcome(state) {
+      state.isOutcome = false;
+    },
     emptySearchList(state) {
       state.searchList = null;
     },
@@ -91,6 +97,14 @@ const profiles = createSlice({
       addNewProfile.fulfilled,
       (state) => {
         state.areProfilesChanged = true;
+        state.isProfileFulfilled = true;
+        state.isOutcome = true;
+      }
+    );
+    builder.addCase(
+      addNewProfile.rejected,
+      (state) => {
+        state.isOutcome = true;
       }
     );
     builder.addCase(
@@ -103,6 +117,14 @@ const profiles = createSlice({
       changeProfileData.fulfilled,
       (state) => {
         state.areProfilesChanged = true;
+        state.isProfileFulfilled = true;
+        state.isOutcome = true;
+      }
+    );
+    builder.addCase(
+      changeProfileData.rejected,
+      (state) => {
+        state.isOutcome = true;
       }
     );
     builder.addCase(
@@ -152,6 +174,6 @@ const profiles = createSlice({
   },
 });
 
-export const { resetProfileAdded, emptySearchList } = profiles.actions;
+export const { resetProfileAdded, emptySearchList, resetOutcome } = profiles.actions;
 
 export default profiles.reducer;

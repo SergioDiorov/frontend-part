@@ -4,9 +4,14 @@ export type ProfileType = {
     city: string
   },
   name: string,
+  photo: string | FormData | null,
   birthDate: string,
   gender: string,
   phone: string,
+}
+
+export type ProfileCredentialsType = Omit<ProfileType, 'photo'> & {
+  file: File | null;
 }
 
 export type ProfileDataResponseType = ProfileType & {

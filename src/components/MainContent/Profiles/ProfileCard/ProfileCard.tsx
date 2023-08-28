@@ -54,7 +54,11 @@ export const ProfileCard: React.FC<ProfilePropType> = ({
       <div className={style.cardHeader}>
         <img
           src={
-            profile.gender === 'male' ? avatarProfileUser : avatarProfileUserWM
+            process.env.REACT_APP_STATIC_IMAGES_URL && profile.photo
+              ? process.env.REACT_APP_STATIC_IMAGES_URL + profile.photo
+              : profile.gender === 'male'
+              ? avatarProfileUser
+              : avatarProfileUserWM
           }
           alt='avatar'
         />
