@@ -7,7 +7,7 @@ export type InitialState = {
   profiles: null | ProfileDataResponseType[];
   areProfilesChanged: boolean,
   isProfileFulfilled: boolean,
-  isProfileRejected: boolean,
+  isOutcome: boolean,
   searchList: null | string[],
 };
 
@@ -15,7 +15,7 @@ const initialState: InitialState = {
   profiles: null,
   areProfilesChanged: false,
   isProfileFulfilled: false,
-  isProfileRejected: false,
+  isOutcome: false,
   searchList: null,
 };
 
@@ -79,11 +79,8 @@ const profiles = createSlice({
     resetProfileAdded(state) {
       state.areProfilesChanged = false;
     },
-    resetProfileRejected(state) {
-      state.isProfileRejected = false;
-    },
-    resetProfileFulfilled(state) {
-      state.isProfileFulfilled = false;
+    resetOutcome(state) {
+      state.isOutcome = false;
     },
     emptySearchList(state) {
       state.searchList = null;
@@ -101,12 +98,13 @@ const profiles = createSlice({
       (state) => {
         state.areProfilesChanged = true;
         state.isProfileFulfilled = true;
+        state.isOutcome = true;
       }
     );
     builder.addCase(
       addNewProfile.rejected,
       (state) => {
-        state.isProfileRejected = true;
+        state.isOutcome = true;
       }
     );
     builder.addCase(
@@ -120,12 +118,13 @@ const profiles = createSlice({
       (state) => {
         state.areProfilesChanged = true;
         state.isProfileFulfilled = true;
+        state.isOutcome = true;
       }
     );
     builder.addCase(
       changeProfileData.rejected,
       (state) => {
-        state.isProfileRejected = true;
+        state.isOutcome = true;
       }
     );
     builder.addCase(
@@ -175,6 +174,6 @@ const profiles = createSlice({
   },
 });
 
-export const { resetProfileAdded, emptySearchList, resetProfileRejected, resetProfileFulfilled } = profiles.actions;
+export const { resetProfileAdded, emptySearchList, resetOutcome } = profiles.actions;
 
 export default profiles.reducer;

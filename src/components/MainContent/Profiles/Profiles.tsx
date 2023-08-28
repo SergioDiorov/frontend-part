@@ -33,9 +33,7 @@ export const Profiles: React.FC = () => {
   const isProfileFulfilled = useSelector(
     (state: StateType) => state.profile.isProfileFulfilled
   );
-  const isProfileRejected = useSelector(
-    (state: StateType) => state.profile.isProfileRejected
-  );
+  const isOutcome = useSelector((state: StateType) => state.profile.isOutcome);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -63,9 +61,7 @@ export const Profiles: React.FC = () => {
 
   return userId ? (
     <div className={style.profilesContainer}>
-      {(isProfileFulfilled || isProfileRejected) && (
-        <ProfileResultMessage error={isProfileFulfilled ? false : true} />
-      )}
+      {isOutcome && <ProfileResultMessage error={!isProfileFulfilled} />}
       {createProfile && (
         <AddNewProfileModal
           userId={userId}

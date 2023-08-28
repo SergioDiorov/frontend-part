@@ -24,9 +24,7 @@ export const CurrentUserProfiles: React.FC<CurrentUserProfilesProps> = ({
   const isProfileFulfilled = useSelector(
     (state: StateType) => state.profile.isProfileFulfilled
   );
-  const isProfileRejected = useSelector(
-    (state: StateType) => state.profile.isProfileRejected
-  );
+  const isOutcome = useSelector((state: StateType) => state.profile.isOutcome);
 
   const [createProfile, setCreateProfile] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -36,9 +34,7 @@ export const CurrentUserProfiles: React.FC<CurrentUserProfilesProps> = ({
 
   return (
     <div className={style.profilesContainer}>
-      {(isProfileFulfilled || isProfileRejected) && (
-        <ProfileResultMessage error={isProfileFulfilled ? false : true} />
-      )}
+      {isOutcome && <ProfileResultMessage error={!isProfileFulfilled} />}
       {createProfile && (
         <AddNewProfileModal
           setCreateProfile={setCreateProfile}
