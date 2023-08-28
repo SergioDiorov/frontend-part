@@ -59,9 +59,6 @@ export const Profiles: React.FC = () => {
     }
   }, []);
 
-  console.log(currentPage);
-  console.log(totalPages);
-
   return userId ? (
     <div className={style.profilesContainer}>
       {isOutcome && <ProfileResultMessage error={!isProfileFulfilled} />}
