@@ -1,0 +1,8 @@
+version: '3'
+services:
+  client:
+    container_name: client-part-container
+    build:
+      context: .
+    ports:
+      - "3001:3001"
