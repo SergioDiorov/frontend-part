@@ -75,7 +75,7 @@ export const SignUp: React.FC<Props> = ({ signUpUser, requestErrors }) => {
             </div>
 
             <label className={style.checkboxContiner}>
-              <Field type='checkbox' name='toggle' />
+              <Field type='checkbox' name='isAdmin' />
               <span className={style.checkboxSpan}>Admin</span>
             </label>
 
